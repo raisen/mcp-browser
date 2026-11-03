@@ -125,4 +125,4 @@ Flags:
 
 ## License
 
-MIT License. Copyright (c) Weydson.
+MIT License. Copyright (c) [Weydson](https://weydson.com).
