@@ -153,12 +153,25 @@ def smoke_test(bundle: Path, exe: Path) -> None:
 
 
 def create_archive(bundle: Path, out_path: Path) -> Path:
-    zip_path = out_path.with_suffix(".zip")
+    zip_path = Path(f"{out_path}.zip")
     if shutil.which("zip"):
         subprocess.run(["zip", "-qry", str(zip_path), bundle.name], cwd=bundle.parent, check=True)
         return zip_path
     archive = shutil.make_archive(str(out_path), "zip", root_dir=bundle.parent, base_dir=bundle.name)
     return Path(archive)
+
+
+def _build_dmg(bundle: Path, out: Path, identity: str | None) -> Path | None:
+    if sys.platform != "darwin":
+        return None
+    import importlib.util
+
+    spec = importlib.util.spec_from_file_location("macos_dmg", ROOT / "packaging" / "macos_dmg.py")
+    if not spec or not spec.loader:
+        return None
+    macos_dmg = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(macos_dmg)
+    return macos_dmg.build_dmg(bundle, out, identity)
 
 
 def build(out: Path, identity: str | None = None) -> Path:
@@ -175,6 +188,10 @@ def build(out: Path, identity: str | None = None) -> Path:
             sign_bundle(bundle, exe, sign_id)
         smoke_test(bundle, exe)
         zip_path = create_archive(bundle, out / archive_name())
+        if sys.platform == "darwin":
+            dmg_path = _build_dmg(bundle, out, sign_id)
+            if dmg_path:
+                print(f"sha256 {sha256(dmg_path)}  {dmg_path.name}")
     print(f"sha256 {sha256(zip_path)}  {zip_path.name}")
     return zip_path
 

@@ -66,7 +66,7 @@ jobs:
       - uses: astral-sh/setup-uv@68559e99cc807c1eb7e9238fd43a15bba460eec2 # v10.3.3
       - run: uv sync --all-packages --locked
       - run: uv run --with pyinstaller==6.22.3 python packaging/build.py --out dist
-      - run: gh release upload "$GITHUB_REF_NAME" dist/*.zip --repo "$GITHUB_REPOSITORY" --clobber
+      - run: gh release upload "$GITHUB_REF_NAME" dist/* --repo "$GITHUB_REPOSITORY" --clobber
 
   finalize:
     name: checksums and publish release
@@ -79,9 +79,10 @@ jobs:
       GH_TOKEN: ${{ github.token }}
     steps:
       - run: gh release download "$GITHUB_REF_NAME" --repo "$GITHUB_REPOSITORY" --pattern "*.zip" --dir assets
+      - run: gh release download "$GITHUB_REF_NAME" --repo "$GITHUB_REPOSITORY" --pattern "*.dmg" --dir assets
       - run: |
           cd assets
-          sha256sum *.zip > SHA256SUMS.txt
+          sha256sum *.zip *.dmg > SHA256SUMS.txt
           cat SHA256SUMS.txt
       - run: |
           gh release upload "$GITHUB_REF_NAME" assets/SHA256SUMS.txt --repo "$GITHUB_REPOSITORY" --clobber

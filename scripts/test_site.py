@@ -134,7 +134,9 @@ def run_tests():
 
     # Direct links to binaries
     binaries = [
+        "https://github.com/raisen/mcp-browser/releases/latest/download/mcp-browser-0.1.0-macos-arm64.dmg",
         "https://github.com/raisen/mcp-browser/releases/latest/download/mcp-browser-0.1.0-macos-arm64.zip",
+        "https://github.com/raisen/mcp-browser/releases/latest/download/mcp-browser-0.1.0-macos-x86_64.dmg",
         "https://github.com/raisen/mcp-browser/releases/latest/download/mcp-browser-0.1.0-macos-x86_64.zip",
         "https://github.com/raisen/mcp-browser/releases/latest/download/mcp-browser-0.1.0-windows-x86_64.zip",
         "https://github.com/raisen/mcp-browser/releases/latest/download/mcp-browser-0.1.0-linux-x86_64.zip",
@@ -144,7 +146,7 @@ def run_tests():
     ]
     for bin_url in binaries:
         assert bin_url in html, f"Missing binary/release link: {bin_url}"
-    print("✓ All 5 binary links and release/PyPI URLs verified")
+    print("✓ All 7 binary/app links and release/PyPI URLs verified")
 
     # Terminal commands
     commands = [

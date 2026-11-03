@@ -25,9 +25,18 @@ and deletes them by safely rewriting the real config files of your coding assist
 
 ## Quick start
 
-Python 3.11 or newer is required for the first three options. The prebuilt zips need nothing.
+Python 3.11 or newer is required for terminal installation with `uv` or `pip`. The native macOS `.dmg` and standalone zips need nothing.
 
-### With uv (recommended)
+### macOS Native App (.dmg)
+
+Download the disk image from the [Releases](https://github.com/raisen/mcp-browser/releases) page (`mcp-browser-X.Y.Z-macos-arm64.dmg` for Apple Silicon or `mcp-browser-X.Y.Z-macos-x86_64.dmg` for Intel). Open the `.dmg`, drag `MCP Browser.app` to `/Applications`, and run it.
+
+- **Menu Bar Controls:** Status bar icon showing server state (Running on port 8765 / Stopped) with Start, Stop, Open in Browser, and View Logs actions.
+- **Control Panel:** Real-time health polling, custom port selection, and easy server management.
+- **Auto-Updates:** Checks GitHub Releases on launch and on demand; downloads and applies updates with one-click update & restart.
+- **Self-Contained:** The complete CLI distribution is embedded inside the app bundle. Zero Python runtime or dependencies required.
+
+### With uv (recommended for CLI)
 
 ```sh
 uv tool install mcp-browser
@@ -180,8 +189,7 @@ elsewhere, put `{"client-id": ["/path/to/file"]}` in `paths.json` in the state f
 
 The prebuilt binaries are not signed or notarized, so the operating system warns on first run.
 
-- **macOS (Gatekeeper):** after unzipping, run `xattr -dr com.apple.quarantine mcp-browser`, or try to open
-  it once and use System Settings, Privacy and Security, Open Anyway.
+- **macOS (Gatekeeper):** For the `.app`, right-click and choose Open, or use System Settings, Privacy & Security, Open Anyway (or run `xattr -dr com.apple.quarantine "/Applications/MCP Browser.app"`). For the CLI zip, run `xattr -dr com.apple.quarantine mcp-browser`.
 - **Windows (SmartScreen):** choose More info, then Run anyway; or run
   `Unblock-File -Path .\mcp-browser\mcp-browser.exe` in PowerShell after unzipping.
 - **Verify the download.** Each release has a `SHA256SUMS.txt`. Compare before you run anything:

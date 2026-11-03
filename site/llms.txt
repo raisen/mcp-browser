@@ -18,12 +18,14 @@ MCP Browser connects to servers locally over stdio and Server-Sent Events (SSE),
 - **pip**: `pip install mcp-browser && mcp-browser`
 - **From Source**: `git clone https://github.com/raisen/mcp-browser && cd mcp-browser && uv sync --all-packages && uv run mcp-browser`
 
-## Prebuilt Binaries (v0.1.0)
+## Prebuilt Binaries & Apps (v0.1.0)
 
-Prebuilt standalone binaries require no Python runtime or dependencies:
+Prebuilt standalone apps and binaries require no Python runtime or dependencies:
 
-- [macOS Apple Silicon (arm64)](https://github.com/raisen/mcp-browser/releases/latest/download/mcp-browser-0.1.0-macos-arm64.zip): For Apple Silicon Macs
-- [macOS Intel (x86_64)](https://github.com/raisen/mcp-browser/releases/latest/download/mcp-browser-0.1.0-macos-x86_64.zip): For Intel-based Macs
+- [macOS Apple Silicon App (.dmg)](https://github.com/raisen/mcp-browser/releases/latest/download/mcp-browser-0.1.0-macos-arm64.dmg): Native macOS App with menu bar controls & auto-updates (arm64)
+- [macOS Apple Silicon CLI (.zip)](https://github.com/raisen/mcp-browser/releases/latest/download/mcp-browser-0.1.0-macos-arm64.zip): CLI binary for Apple Silicon Macs
+- [macOS Intel App (.dmg)](https://github.com/raisen/mcp-browser/releases/latest/download/mcp-browser-0.1.0-macos-x86_64.dmg): Native macOS App with menu bar controls & auto-updates (x86_64)
+- [macOS Intel CLI (.zip)](https://github.com/raisen/mcp-browser/releases/latest/download/mcp-browser-0.1.0-macos-x86_64.zip): CLI binary for Intel-based Macs
 - [Windows (x86_64)](https://github.com/raisen/mcp-browser/releases/latest/download/mcp-browser-0.1.0-windows-x86_64.zip): For 64-bit Windows systems
 - [Linux (x86_64)](https://github.com/raisen/mcp-browser/releases/latest/download/mcp-browser-0.1.0-linux-x86_64.zip): For 64-bit Linux distributions
 - [SHA256 Checksums](https://github.com/raisen/mcp-browser/releases/latest/download/SHA256SUMS.txt): Cryptographic verification file

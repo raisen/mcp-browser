@@ -48,13 +48,17 @@ pip install mcp-browser
 mcp-browser
 ```
 
-### 2.3 Standalone Prebuilt Binaries (Zero Dependencies)
+### 2.3 Standalone Prebuilt Apps & Binaries (Zero Dependencies)
 
-Standalone bundles packaged with PyInstaller require no Python installation or external runtimes:
+Standalone Mac apps and bundles require no Python installation or external runtimes:
 
-- **macOS Apple Silicon (arm64)**:
+- **macOS Apple Silicon App (.dmg)**:
+  `https://github.com/raisen/mcp-browser/releases/latest/download/mcp-browser-0.1.0-macos-arm64.dmg`
+- **macOS Apple Silicon CLI (.zip)**:
   `https://github.com/raisen/mcp-browser/releases/latest/download/mcp-browser-0.1.0-macos-arm64.zip`
-- **macOS Intel (x86_64)**:
+- **macOS Intel App (.dmg)**:
+  `https://github.com/raisen/mcp-browser/releases/latest/download/mcp-browser-0.1.0-macos-x86_64.dmg`
+- **macOS Intel CLI (.zip)**:
   `https://github.com/raisen/mcp-browser/releases/latest/download/mcp-browser-0.1.0-macos-x86_64.zip`
 - **Windows (x86_64)**:
   `https://github.com/raisen/mcp-browser/releases/latest/download/mcp-browser-0.1.0-windows-x86_64.zip`

@@ -81,3 +81,18 @@ def test_workflows_pin_verified_action_versions(workflow: str) -> None:
 
 def test_sse_starlette_is_not_bundled() -> None:
     assert "sse_starlette" not in load("build").HIDDEN_IMPORTS
+
+
+def test_macos_dmg_arch_and_icons() -> None:
+    dmg_mod = load("macos_dmg")
+    assert dmg_mod.current_arch() in ("arm64", "x86_64")
+    sizes = [s for _, s in dmg_mod.ICON_SIZES]
+    assert 16 in sizes and 1024 in sizes
+    assert len(dmg_mod.ICON_SIZES) == 10
+
+
+def test_release_workflow_includes_dmg() -> None:
+    text = (ROOT / ".github" / "workflows" / "release.yml").read_text(encoding="utf-8")
+    assert "dist/*" in text
+    assert '"*.dmg"' in text
+    assert "*.zip *.dmg > SHA256SUMS.txt" in text

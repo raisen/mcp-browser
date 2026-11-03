@@ -665,6 +665,21 @@
   padding: 0.55rem 0.75rem;
 }
 
+.download-subtext {
+  font-size: 0.775rem;
+  text-align: center;
+  margin: 0.5rem 0 0;
+}
+
+.download-subtext a {
+  color: var(--pico-muted-color);
+  text-decoration: underline;
+}
+
+.download-subtext a:hover {
+  color: var(--brand-primary);
+}
+
 /* --------------------------------------------------------------------------
    Security Badges & Table
    -------------------------------------------------------------------------- */

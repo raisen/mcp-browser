@@ -39,13 +39,13 @@ git clone https://github.com/raisen/mcp-browser && cd mcp-browser && uv sync --a
 
 Prebuilt binaries require no Python installation.
 
-| Platform | Architecture | Package Archive |
-|---|---|---|
-| macOS | Apple Silicon (arm64) | [mcp-browser-0.1.0-macos-arm64.zip](https://github.com/raisen/mcp-browser/releases/latest/download/mcp-browser-0.1.0-macos-arm64.zip) |
-| macOS | Intel (x86_64) | [mcp-browser-0.1.0-macos-x86_64.zip](https://github.com/raisen/mcp-browser/releases/latest/download/mcp-browser-0.1.0-macos-x86_64.zip) |
-| Windows | x86_64 | [mcp-browser-0.1.0-windows-x86_64.zip](https://github.com/raisen/mcp-browser/releases/latest/download/mcp-browser-0.1.0-windows-x86_64.zip) |
-| Linux | x86_64 | [mcp-browser-0.1.0-linux-x86_64.zip](https://github.com/raisen/mcp-browser/releases/latest/download/mcp-browser-0.1.0-linux-x86_64.zip) |
-| All | Checksums | [SHA256SUMS.txt](https://github.com/raisen/mcp-browser/releases/latest/download/SHA256SUMS.txt) |
+| Platform | Architecture | Native App (.dmg) | CLI Archive (.zip) |
+|---|---|---|---|
+| macOS | Apple Silicon (arm64) | [mcp-browser-0.1.0-macos-arm64.dmg](https://github.com/raisen/mcp-browser/releases/latest/download/mcp-browser-0.1.0-macos-arm64.dmg) | [mcp-browser-0.1.0-macos-arm64.zip](https://github.com/raisen/mcp-browser/releases/latest/download/mcp-browser-0.1.0-macos-arm64.zip) |
+| macOS | Intel (x86_64) | [mcp-browser-0.1.0-macos-x86_64.dmg](https://github.com/raisen/mcp-browser/releases/latest/download/mcp-browser-0.1.0-macos-x86_64.dmg) | [mcp-browser-0.1.0-macos-x86_64.zip](https://github.com/raisen/mcp-browser/releases/latest/download/mcp-browser-0.1.0-macos-x86_64.zip) |
+| Windows | x86_64 | — | [mcp-browser-0.1.0-windows-x86_64.zip](https://github.com/raisen/mcp-browser/releases/latest/download/mcp-browser-0.1.0-windows-x86_64.zip) |
+| Linux | x86_64 | — | [mcp-browser-0.1.0-linux-x86_64.zip](https://github.com/raisen/mcp-browser/releases/latest/download/mcp-browser-0.1.0-linux-x86_64.zip) |
+| All | Checksums | [SHA256SUMS.txt](https://github.com/raisen/mcp-browser/releases/latest/download/SHA256SUMS.txt) | [SHA256SUMS.txt](https://github.com/raisen/mcp-browser/releases/latest/download/SHA256SUMS.txt) |
 
 ### macOS Gatekeeper Note
 
