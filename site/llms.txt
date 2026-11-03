@@ -22,10 +22,10 @@ MCP Browser connects to servers locally over stdio and Server-Sent Events (SSE),
 
 Prebuilt standalone binaries require no Python runtime or dependencies:
 
-- [macOS Apple Silicon (arm64)](https://github.com/raisen/mcp-browser/releases/latest/download/mcp-browser-0.1.0-macos-arm64.zip): macOS 12+ on Apple Silicon (M1/M2/M3/M4)
-- [macOS Intel (x86_64)](https://github.com/raisen/mcp-browser/releases/latest/download/mcp-browser-0.1.0-macos-x86_64.zip): macOS 12+ on Intel processors
-- [Windows (x86_64)](https://github.com/raisen/mcp-browser/releases/latest/download/mcp-browser-0.1.0-windows-x86_64.zip): Windows 10/11 64-bit
-- [Linux (x86_64)](https://github.com/raisen/mcp-browser/releases/latest/download/mcp-browser-0.1.0-linux-x86_64.zip): glibc 2.31+ x86_64 distributions
+- [macOS Apple Silicon (arm64)](https://github.com/raisen/mcp-browser/releases/latest/download/mcp-browser-0.1.0-macos-arm64.zip): For Apple Silicon Macs
+- [macOS Intel (x86_64)](https://github.com/raisen/mcp-browser/releases/latest/download/mcp-browser-0.1.0-macos-x86_64.zip): For Intel-based Macs
+- [Windows (x86_64)](https://github.com/raisen/mcp-browser/releases/latest/download/mcp-browser-0.1.0-windows-x86_64.zip): For 64-bit Windows systems
+- [Linux (x86_64)](https://github.com/raisen/mcp-browser/releases/latest/download/mcp-browser-0.1.0-linux-x86_64.zip): For 64-bit Linux distributions
 - [SHA256 Checksums](https://github.com/raisen/mcp-browser/releases/latest/download/SHA256SUMS.txt): Cryptographic verification file
 
 ## Supported AI Coding Clients
