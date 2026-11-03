@@ -46,12 +46,12 @@ powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | ie
 Straight from GitHub, without PyPI:
 
 ```sh
-uv tool install "git+https://github.com/OWNER/mcp-browser#subdirectory=packages/cli"
+uv tool install "git+https://github.com/raisen/mcp-browser#subdirectory=packages/cli"
 ```
 
 ### Prebuilt zip (no Python needed)
 
-Download the zip for your system from the [Releases](https://github.com/OWNER/mcp-browser/releases) page
+Download the zip for your system from the [Releases](https://github.com/raisen/mcp-browser/releases) page
 (`macos-arm64`, `macos-x86_64`, `windows-x86_64`, `linux-x86_64`), unzip it and run `mcp-browser/mcp-browser`
 (`mcp-browser.exe` on Windows). The binaries are not code-signed: see
 [Gatekeeper, SmartScreen and checksums](#gatekeeper-smartscreen-and-checksums).
@@ -59,7 +59,7 @@ Download the zip for your system from the [Releases](https://github.com/OWNER/mc
 ### From source
 
 ```sh
-git clone https://github.com/OWNER/mcp-browser && cd mcp-browser
+git clone https://github.com/raisen/mcp-browser && cd mcp-browser
 uv sync --all-packages
 uv run mcp-browser
 ```

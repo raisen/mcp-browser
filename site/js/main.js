@@ -62,7 +62,7 @@ function initTheme() {
 const SNIPPETS = {
   uv: 'uv tool install mcp-browser && mcp-browser',
   pip: 'pip install mcp-browser && mcp-browser',
-  source: 'git clone https://github.com/weydson/mcp-browser && cd mcp-browser && uv sync --all-packages && uv run mcp-browser'
+  source: 'git clone https://github.com/raisen/mcp-browser && cd mcp-browser && uv sync --all-packages && uv run mcp-browser'
 };
 
 function initTerminalTabs() {

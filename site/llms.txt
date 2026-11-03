@@ -8,25 +8,25 @@ MCP Browser connects to servers locally over stdio and Server-Sent Events (SSE),
 
 - [Full LLM Reference](https://mcpbrowser.weydson.com/llms-full.txt): Complete, in-depth technical documentation covering CLI commands, security boundaries, client config dialects, and safety guarantees.
 - [Homepage Markdown](https://mcpbrowser.weydson.com/index.md): Direct markdown mirror of the mcpbrowser.weydson.com homepage.
-- [GitHub Repository](https://github.com/weydson/mcp-browser): Source code, bug reports, and discussion.
-- [GitHub Releases](https://github.com/weydson/mcp-browser/releases): Release notes and binary downloads.
+- [GitHub Repository](https://github.com/raisen/mcp-browser): Source code, bug reports, and discussion.
+- [GitHub Releases](https://github.com/raisen/mcp-browser/releases): Release notes and binary downloads.
 - [PyPI Package](https://pypi.org/project/mcp-browser/): Published wheels and source distributions.
 
 ## Quick Installation
 
 - **uv (Recommended)**: `uv tool install mcp-browser && mcp-browser`
 - **pip**: `pip install mcp-browser && mcp-browser`
-- **From Source**: `git clone https://github.com/weydson/mcp-browser && cd mcp-browser && uv sync --all-packages && uv run mcp-browser`
+- **From Source**: `git clone https://github.com/raisen/mcp-browser && cd mcp-browser && uv sync --all-packages && uv run mcp-browser`
 
 ## Prebuilt Binaries (v0.1.0)
 
 Prebuilt standalone binaries require no Python runtime or dependencies:
 
-- [macOS Apple Silicon (arm64)](https://github.com/weydson/mcp-browser/releases/latest/download/mcp-browser-0.1.0-macos-arm64.zip): macOS 12+ on Apple Silicon (M1/M2/M3/M4)
-- [macOS Intel (x86_64)](https://github.com/weydson/mcp-browser/releases/latest/download/mcp-browser-0.1.0-macos-x86_64.zip): macOS 12+ on Intel processors
-- [Windows (x86_64)](https://github.com/weydson/mcp-browser/releases/latest/download/mcp-browser-0.1.0-windows-x86_64.zip): Windows 10/11 64-bit
-- [Linux (x86_64)](https://github.com/weydson/mcp-browser/releases/latest/download/mcp-browser-0.1.0-linux-x86_64.zip): glibc 2.31+ x86_64 distributions
-- [SHA256 Checksums](https://github.com/weydson/mcp-browser/releases/latest/download/SHA256SUMS.txt): Cryptographic verification file
+- [macOS Apple Silicon (arm64)](https://github.com/raisen/mcp-browser/releases/latest/download/mcp-browser-0.1.0-macos-arm64.zip): macOS 12+ on Apple Silicon (M1/M2/M3/M4)
+- [macOS Intel (x86_64)](https://github.com/raisen/mcp-browser/releases/latest/download/mcp-browser-0.1.0-macos-x86_64.zip): macOS 12+ on Intel processors
+- [Windows (x86_64)](https://github.com/raisen/mcp-browser/releases/latest/download/mcp-browser-0.1.0-windows-x86_64.zip): Windows 10/11 64-bit
+- [Linux (x86_64)](https://github.com/raisen/mcp-browser/releases/latest/download/mcp-browser-0.1.0-linux-x86_64.zip): glibc 2.31+ x86_64 distributions
+- [SHA256 Checksums](https://github.com/raisen/mcp-browser/releases/latest/download/SHA256SUMS.txt): Cryptographic verification file
 
 ## Supported AI Coding Clients
 

@@ -134,12 +134,12 @@ def run_tests():
 
     # Direct links to binaries
     binaries = [
-        "https://github.com/weydson/mcp-browser/releases/latest/download/mcp-browser-0.1.0-macos-arm64.zip",
-        "https://github.com/weydson/mcp-browser/releases/latest/download/mcp-browser-0.1.0-macos-x86_64.zip",
-        "https://github.com/weydson/mcp-browser/releases/latest/download/mcp-browser-0.1.0-windows-x86_64.zip",
-        "https://github.com/weydson/mcp-browser/releases/latest/download/mcp-browser-0.1.0-linux-x86_64.zip",
-        "https://github.com/weydson/mcp-browser/releases/latest/download/SHA256SUMS.txt",
-        "https://github.com/weydson/mcp-browser/releases",
+        "https://github.com/raisen/mcp-browser/releases/latest/download/mcp-browser-0.1.0-macos-arm64.zip",
+        "https://github.com/raisen/mcp-browser/releases/latest/download/mcp-browser-0.1.0-macos-x86_64.zip",
+        "https://github.com/raisen/mcp-browser/releases/latest/download/mcp-browser-0.1.0-windows-x86_64.zip",
+        "https://github.com/raisen/mcp-browser/releases/latest/download/mcp-browser-0.1.0-linux-x86_64.zip",
+        "https://github.com/raisen/mcp-browser/releases/latest/download/SHA256SUMS.txt",
+        "https://github.com/raisen/mcp-browser/releases",
         "https://pypi.org/project/mcp-browser/",
     ]
     for bin_url in binaries:
@@ -151,7 +151,7 @@ def run_tests():
         "uv tool install mcp-browser && mcp-browser",
         "pip install mcp-browser && mcp-browser",
         (  # git clone snippet
-            "git clone https://github.com/weydson/mcp-browser && "
+            "git clone https://github.com/raisen/mcp-browser && "
             "cd mcp-browser && uv sync --all-packages && uv run mcp-browser"
         ),
     ]

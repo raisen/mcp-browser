@@ -5,8 +5,8 @@
 A local, private web interface that discovers servers configured in Claude Code, Claude Desktop, Cursor, VS Code, Windsurf, Zed, Codex, Gemini CLI, Antigravity, and Cline. Connect to stdio and SSE servers, execute tools through dynamically generated JSON Schema forms, and update configuration files atomically with automatic backups.
 
 - **Canonical URL**: https://mcpbrowser.weydson.com/
-- **GitHub**: https://github.com/weydson/mcp-browser
-- **Releases**: https://github.com/weydson/mcp-browser/releases
+- **GitHub**: https://github.com/raisen/mcp-browser
+- **Releases**: https://github.com/raisen/mcp-browser/releases
 - **PyPI**: https://pypi.org/project/mcp-browser/
 - **LLM Index**: https://mcpbrowser.weydson.com/llms.txt
 - **LLM Technical Reference**: https://mcpbrowser.weydson.com/llms-full.txt
@@ -30,7 +30,7 @@ pip install mcp-browser && mcp-browser
 ### From Source
 
 ```sh
-git clone https://github.com/weydson/mcp-browser && cd mcp-browser && uv sync --all-packages && uv run mcp-browser
+git clone https://github.com/raisen/mcp-browser && cd mcp-browser && uv sync --all-packages && uv run mcp-browser
 ```
 
 ---
@@ -41,11 +41,11 @@ Prebuilt binaries require no Python installation.
 
 | Platform | Architecture | Package Archive |
 |---|---|---|
-| macOS | Apple Silicon (arm64) | [mcp-browser-0.1.0-macos-arm64.zip](https://github.com/weydson/mcp-browser/releases/latest/download/mcp-browser-0.1.0-macos-arm64.zip) |
-| macOS | Intel (x86_64) | [mcp-browser-0.1.0-macos-x86_64.zip](https://github.com/weydson/mcp-browser/releases/latest/download/mcp-browser-0.1.0-macos-x86_64.zip) |
-| Windows | x86_64 | [mcp-browser-0.1.0-windows-x86_64.zip](https://github.com/weydson/mcp-browser/releases/latest/download/mcp-browser-0.1.0-windows-x86_64.zip) |
-| Linux | x86_64 | [mcp-browser-0.1.0-linux-x86_64.zip](https://github.com/weydson/mcp-browser/releases/latest/download/mcp-browser-0.1.0-linux-x86_64.zip) |
-| All | Checksums | [SHA256SUMS.txt](https://github.com/weydson/mcp-browser/releases/latest/download/SHA256SUMS.txt) |
+| macOS | Apple Silicon (arm64) | [mcp-browser-0.1.0-macos-arm64.zip](https://github.com/raisen/mcp-browser/releases/latest/download/mcp-browser-0.1.0-macos-arm64.zip) |
+| macOS | Intel (x86_64) | [mcp-browser-0.1.0-macos-x86_64.zip](https://github.com/raisen/mcp-browser/releases/latest/download/mcp-browser-0.1.0-macos-x86_64.zip) |
+| Windows | x86_64 | [mcp-browser-0.1.0-windows-x86_64.zip](https://github.com/raisen/mcp-browser/releases/latest/download/mcp-browser-0.1.0-windows-x86_64.zip) |
+| Linux | x86_64 | [mcp-browser-0.1.0-linux-x86_64.zip](https://github.com/raisen/mcp-browser/releases/latest/download/mcp-browser-0.1.0-linux-x86_64.zip) |
+| All | Checksums | [SHA256SUMS.txt](https://github.com/raisen/mcp-browser/releases/latest/download/SHA256SUMS.txt) |
 
 ### macOS Gatekeeper Note
 

@@ -3,6 +3,7 @@ name: Release
 on:
   push:
     tags: ["v*"]
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -19,6 +20,7 @@ jobs:
   publish:
     name: publish to PyPI
     needs: check
+    continue-on-error: true
     runs-on: ubuntu-latest
     environment: pypi
     permissions:
@@ -68,7 +70,8 @@ jobs:
 
   finalize:
     name: checksums and publish release
-    needs: [binaries, publish]
+    needs: [binaries]
+    if: always() && !cancelled() && needs.binaries.result == 'success'
     runs-on: ubuntu-latest
     permissions:
       contents: write

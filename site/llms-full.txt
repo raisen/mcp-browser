@@ -2,7 +2,7 @@
 
 > Official comprehensive technical reference for MCP Browser (`mcp-browser`).
 > Website: https://mcpbrowser.weydson.com/
-> Repository: https://github.com/weydson/mcp-browser
+> Repository: https://github.com/raisen/mcp-browser
 > Author: Weydson
 > License: MIT
 
@@ -34,7 +34,7 @@ mcp-browser
 To install directly from the GitHub repository:
 
 ```sh
-uv tool install "git+https://github.com/weydson/mcp-browser#subdirectory=packages/cli"
+uv tool install "git+https://github.com/raisen/mcp-browser#subdirectory=packages/cli"
 ```
 
 If `uv` is not yet installed:
@@ -53,20 +53,20 @@ mcp-browser
 Standalone bundles packaged with PyInstaller require no Python installation or external runtimes:
 
 - **macOS Apple Silicon (arm64)**:
-  `https://github.com/weydson/mcp-browser/releases/latest/download/mcp-browser-0.1.0-macos-arm64.zip`
+  `https://github.com/raisen/mcp-browser/releases/latest/download/mcp-browser-0.1.0-macos-arm64.zip`
 - **macOS Intel (x86_64)**:
-  `https://github.com/weydson/mcp-browser/releases/latest/download/mcp-browser-0.1.0-macos-x86_64.zip`
+  `https://github.com/raisen/mcp-browser/releases/latest/download/mcp-browser-0.1.0-macos-x86_64.zip`
 - **Windows (x86_64)**:
-  `https://github.com/weydson/mcp-browser/releases/latest/download/mcp-browser-0.1.0-windows-x86_64.zip`
+  `https://github.com/raisen/mcp-browser/releases/latest/download/mcp-browser-0.1.0-windows-x86_64.zip`
 - **Linux (x86_64)**:
-  `https://github.com/weydson/mcp-browser/releases/latest/download/mcp-browser-0.1.0-linux-x86_64.zip`
+  `https://github.com/raisen/mcp-browser/releases/latest/download/mcp-browser-0.1.0-linux-x86_64.zip`
 - **SHA256 Checksums**:
-  `https://github.com/weydson/mcp-browser/releases/latest/download/SHA256SUMS.txt`
+  `https://github.com/raisen/mcp-browser/releases/latest/download/SHA256SUMS.txt`
 
 ### 2.4 From Source Repository
 
 ```sh
-git clone https://github.com/weydson/mcp-browser
+git clone https://github.com/raisen/mcp-browser
 cd mcp-browser
 uv sync --all-packages
 uv run mcp-browser
