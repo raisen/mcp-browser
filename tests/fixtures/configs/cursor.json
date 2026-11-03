@@ -1,0 +1,6 @@
+{
+    "mcpServers": {
+        "cur-stdio": {"command": "npx", "args": ["-y", "@example/cur"], "envFile": ".env.demo"},
+        "cur-http": {"url": "https://cur.example.test/mcp", "headers": {"X": "1"}}
+    }
+}

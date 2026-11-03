@@ -1,0 +1,1 @@
+{"mcpServers": {"plug-srv": {"command": "${CLAUDE_PLUGIN_ROOT}/bin/run", "args": ["--cfg", "${user_config.path}"]}}}

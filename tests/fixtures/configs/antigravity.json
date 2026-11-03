@@ -1,0 +1,6 @@
+{
+  "mcpServers": {
+    "ag-stdio": {"command": "uvx", "args": ["demo-server"]},
+    "ag-http": {"serverUrl": "https://ag.example.test/mcp", "headers": {"Authorization": "Bearer fake-666"}}
+  }
+}

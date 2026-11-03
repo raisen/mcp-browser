@@ -1,0 +1,1 @@
+{"name": "demo-ext", "version": "1.0.0", "server": {"type": "node", "mcp_config": {"command": "node", "args": ["${__dirname}/server/index.js"], "env": {"EXT_KEY": "fake-777"}}}}

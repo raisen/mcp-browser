@@ -1,0 +1,46 @@
+[project]
+name = "mcp-browser-workspace"
+version = "0.0.0"
+description = "Workspace root for mcp-browser (not published)"
+requires-python = ">=3.11"
+dependencies = []
+
+[tool.uv]
+package = false
+
+[tool.uv.workspace]
+members = ["packages/*"]
+
+[tool.uv.sources]
+mcp-browser-core = { workspace = true }
+mcp-browser-server = { workspace = true }
+mcp-browser = { workspace = true }
+
+[dependency-groups]
+dev = [
+    "mcp-browser-core",
+    "mcp-browser-server",
+    "mcp-browser",
+    "ruff",
+    "pyright",
+    "pytest",
+    "anyio",
+]
+
+[tool.ruff]
+line-length = 110
+target-version = "py311"
+extend-exclude = ["**/*.md", "packages/server/src/mcp_browser_server/static/vendor"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM", "RUF"]
+
+[tool.pyright]
+typeCheckingMode = "strict"
+pythonVersion = "3.11"
+include = ["packages", "tests", "scripts", "packaging"]
+exclude = ["**/__pycache__", "**/.venv"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "--import-mode=importlib"

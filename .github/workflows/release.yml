@@ -1,0 +1,85 @@
+name: Release
+
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    name: check tag and versions
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: astral-sh/setup-uv@68559e99cc807c1eb7e9238fd43a15bba460eec2 # v10.3.3
+      - run: uv run --no-project python packaging/check_version.py "$GITHUB_REF_NAME"
+
+  publish:
+    name: publish to PyPI
+    needs: check
+    runs-on: ubuntu-latest
+    environment: pypi
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: astral-sh/setup-uv@68559e99cc807c1eb7e9238fd43a15bba460eec2 # v10.3.3
+      - run: |
+          uv build --package mcp-browser-core --out-dir dist
+          uv build --package mcp-browser-server --out-dir dist
+          uv build --package mcp-browser --out-dir dist
+      - run: uv publish --trusted-publishing always dist/*
+
+  draft:
+    name: draft GitHub release
+    needs: check
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - run: gh release create "$GITHUB_REF_NAME" --repo "$GITHUB_REPOSITORY" --draft --generate-notes
+
+  binaries:
+    name: binary (${{ matrix.os }})
+    needs: draft
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-latest, macos-15-intel, windows-latest, ubuntu-22.04]
+    permissions:
+      contents: write
+    defaults:
+      run:
+        shell: bash
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: astral-sh/setup-uv@68559e99cc807c1eb7e9238fd43a15bba460eec2 # v10.3.3
+      - run: uv sync --all-packages --locked
+      - run: uv run --with pyinstaller==6.22.3 python packaging/build.py --out dist
+      - run: gh release upload "$GITHUB_REF_NAME" dist/*.zip --repo "$GITHUB_REPOSITORY" --clobber
+
+  finalize:
+    name: checksums and publish release
+    needs: [binaries, publish]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - run: gh release download "$GITHUB_REF_NAME" --repo "$GITHUB_REPOSITORY" --pattern "*.zip" --dir assets
+      - run: |
+          cd assets
+          sha256sum *.zip > SHA256SUMS.txt
+          cat SHA256SUMS.txt
+      - run: |
+          gh release upload "$GITHUB_REF_NAME" assets/SHA256SUMS.txt --repo "$GITHUB_REPOSITORY" --clobber
+          gh release edit "$GITHUB_REF_NAME" --repo "$GITHUB_REPOSITORY" --draft=false

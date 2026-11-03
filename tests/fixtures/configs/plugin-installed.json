@@ -1,0 +1,1 @@
+{"version": 2, "plugins": {"demo@market": [{"scope": "user", "installPath": "__ROOT__/demo-plugin", "version": "1.0.0"}]}}

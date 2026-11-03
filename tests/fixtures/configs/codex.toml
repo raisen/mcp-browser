@@ -1,0 +1,21 @@
+# Codex demo config
+model = "demo-model"
+
+[mcp_servers.docs]
+# main docs server
+command = "npx"
+args = ["-y", "@example/docs"]  # pinned later
+startup_timeout_sec = 20
+env_vars = ["HOME"]
+
+[mcp_servers.docs.env]
+DOCS_TOKEN = "fake-token-444"
+
+[mcp_servers.remote]
+url = "https://codex.example.test/mcp"
+bearer_token_env_var = "FAKE_REMOTE_TOKEN"
+http_headers = { "X-Demo" = "1" }
+enabled = false
+
+[profiles.fast]
+model = "demo-fast"

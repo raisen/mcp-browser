@@ -1,0 +1,1 @@
+"""mcp-browser web server."""

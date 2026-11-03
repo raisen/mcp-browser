@@ -1,0 +1,32 @@
+{
+  "numStartups": 42,
+  "theme": "dark",
+  "mcpServers": {
+    "alpha-stdio": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "@example/alpha-server", "--api-key", "fake-key-000"],
+      "env": {"ALPHA_TOKEN": "fake-token-111"}
+    },
+    "beta-http": {
+      "type": "http",
+      "url": "https://mcp.example.test/mcp?api_key=fake-q-222&mode=ro",
+      "headers": {"Authorization": "Bearer fake-bearer-333"}
+    },
+    "gamma-sse": {"type": "sse", "url": "https://sse.example.test/sse", "futureField": [1, 2]},
+    "delta-ws": {"type": "ws", "url": "wss://ws.example.test"}
+  },
+  "projects": {
+    "/work/demo-app": {
+      "allowedTools": [],
+      "mcpServers": {"local-one": {"type": "stdio", "command": "node", "args": ["srv.js"]}},
+      "history": ["x"]
+    },
+    "C:\\Users\\demo\\work": {
+      "mcpServers": {"win-local": {"command": "python", "args": ["-m", "srv"]}},
+      "hasTrustDialogAccepted": true
+    },
+    "/work/other": {"allowedTools": []}
+  },
+  "oauthAccount": {"emailAddress": "nobody@example.test"}
+}

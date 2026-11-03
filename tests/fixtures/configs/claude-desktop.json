@@ -1,0 +1,7 @@
+{
+  "globalShortcut": "Ctrl+Space",
+  "mcpServers": {
+    "files": {"command": "npx", "args": ["-y", "@example/files", "/tmp/demo"], "env": {"DEBUG": "1"}},
+    "off": {"command": "echo", "disabled": true}
+  }
+}

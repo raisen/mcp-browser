@@ -1,0 +1,7 @@
+{
+  // user comment that must trigger a refusal
+  "mcpServers": {
+    "cur-url": {"url": "https://cur.example.test/a//b"}, /* inline block */
+    "cur-stdio": {"command": "npx", "args": ["x"]}
+  }
+}

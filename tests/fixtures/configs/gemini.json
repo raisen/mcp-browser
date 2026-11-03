@@ -1,0 +1,8 @@
+{
+  "theme": "Default",
+  "mcpServers": {
+    "g-stdio": {"command": "node", "args": ["a.js"], "trust": true, "timeout": 5000},
+    "g-http": {"httpUrl": "https://gem.example.test/mcp", "headers": {"X-Key": "fake-555"}},
+    "g-sse": {"url": "https://gem.example.test/sse", "includeTools": ["a"]}
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "theme": "One Dark",
+  "context_servers": {
+    "z-stdio": {"source": "custom", "command": "npx", "args": ["-y", "@example/z"], "env": {"Z": "1"}},
+    "z-http": {"source": "custom", "url": "https://z.example.test/mcp", "headers": {"A": "b"}, "enabled": false},
+    "z-legacy": {"command": {"path": "npx", "args": ["x"]}}
+  },
+  "buffer_font_size": 14
+}

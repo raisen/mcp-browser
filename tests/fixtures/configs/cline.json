@@ -1,0 +1,6 @@
+{
+  "mcpServers": {
+    "cl-stdio": {"type": "stdio", "command": "node", "args": ["c.js"], "alwaysAllow": ["t1"], "disabled": false},
+    "cl-http": {"type": "streamableHttp", "url": "https://c.example.test/mcp", "timeout": 60}
+  }
+}

@@ -1,0 +1,1 @@
+"""mcp-browser command line."""

@@ -1,0 +1,8 @@
+{
+  "inputs": [{"type": "promptString", "id": "tok", "description": "Token", "password": true}],
+  "servers": {
+    "v-stdio": {"type": "stdio", "command": "npx", "args": ["-y", "@example/v"], "env": {"K": "${input:tok}"}},
+    "v-http": {"type": "http", "url": "https://v.example.test/mcp", "headers": {"A": "${input:tok}"}},
+    "v-sse": {"type": "sse", "url": "https://v.example.test/sse"}
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "mcpServers": {
+    "ws-stdio": {"command": "node", "args": ["w.js"]},
+    "ws-http": {"serverUrl": "https://w.example.test/mcp"}
+  }
+}
