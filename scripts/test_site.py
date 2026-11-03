@@ -4,10 +4,17 @@ import functools
 import http.server
 import re
 import socket
+import sys
 import threading
 import urllib.request
 import xml.etree.ElementTree as ET
 from pathlib import Path
+
+# Ensure UTF-8 output on Windows consoles
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+if hasattr(sys.stderr, "reconfigure"):
+    sys.stderr.reconfigure(encoding="utf-8", errors="replace")
 
 SITE_DIR = Path(__file__).resolve().parent.parent / "site"
 
@@ -64,17 +71,17 @@ def run_tests():
             print(f"✓ {path}: {status} ({len(data)} bytes, {content_type})")
 
     # 2. Check CNAME content
-    cname_content = (SITE_DIR / "CNAME").read_text().strip()
+    cname_content = (SITE_DIR / "CNAME").read_text(encoding="utf-8").strip()
     assert cname_content == "mcpbrowser.weydson.com", f"Unexpected CNAME: {cname_content}"
     print(f"✓ CNAME content matches: {cname_content}")
 
     # 3. Check robots.txt
-    robots_content = (SITE_DIR / "robots.txt").read_text()
+    robots_content = (SITE_DIR / "robots.txt").read_text(encoding="utf-8")
     assert "Sitemap: https://mcpbrowser.weydson.com/sitemap.xml" in robots_content
     print("✓ robots.txt points to sitemap")
 
     # 4. Check sitemap.xml
-    sitemap_content = (SITE_DIR / "sitemap.xml").read_text()
+    sitemap_content = (SITE_DIR / "sitemap.xml").read_text(encoding="utf-8")
     root = ET.fromstring(sitemap_content)
     urls = [elem.text for elem in root.findall(".//{http://www.sitemaps.org/schemas/sitemap/0.9}loc")]
     assert "https://mcpbrowser.weydson.com/" in urls
@@ -84,7 +91,7 @@ def run_tests():
     print(f"✓ sitemap.xml valid with {len(urls)} URLs")
 
     # 5. Check index.html requirements
-    html = (SITE_DIR / "index.html").read_text()
+    html = (SITE_DIR / "index.html").read_text(encoding="utf-8")
 
     # Canonical URL
     assert '<link rel="canonical" href="https://mcpbrowser.weydson.com/">' in html, "Missing canonical link"
@@ -192,16 +199,16 @@ def run_tests():
     print("✓ Unified interactive screenshot cards and theme toggles verified")
 
     # Check llms.txt & llms-full.txt
-    llms_txt = (SITE_DIR / "llms.txt").read_text()
+    llms_txt = (SITE_DIR / "llms.txt").read_text(encoding="utf-8")
     assert llms_txt.startswith("# MCP Browser")
     assert "> A local web page" in llms_txt
     print("✓ llms.txt format adheres to https://llmstxt.org specification")
 
-    llms_full = (SITE_DIR / "llms-full.txt").read_text()
+    llms_full = (SITE_DIR / "llms-full.txt").read_text(encoding="utf-8")
     assert len(llms_full) > 2000
     print(f"✓ llms-full.txt comprehensive guide verified ({len(llms_full)} bytes)")
 
-    index_md = (SITE_DIR / "index.md").read_text()
+    index_md = (SITE_DIR / "index.md").read_text(encoding="utf-8")
     assert len(index_md) > 1000
     print(f"✓ index.md markdown mirror verified ({len(index_md)} bytes)")
 
