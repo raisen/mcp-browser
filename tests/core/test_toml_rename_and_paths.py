@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import sys
 from pathlib import Path
 
 from mcp_browser_core.discovery import active_user_file, discover
@@ -73,7 +74,8 @@ def test_toml_rename_last_table_stays_last(paths: Paths) -> None:
 
 
 def test_glob_characters_in_home_are_literal(tmp_path: Path) -> None:
-    home = tmp_path / "ho[me]?*"
+    home_name = "ho[me]" if sys.platform == "win32" else "ho[me]?*"
+    home = tmp_path / home_name
     manifest = home / "Library/Application Support/Claude/Claude Extensions/ext1/manifest.json"
     manifest.parent.mkdir(parents=True)
     manifest.write_text("{}")

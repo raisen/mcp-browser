@@ -23,6 +23,19 @@ def entry(name: str = "fx", args: list[str] | None = None) -> ServerEntry:
 
 
 def alive(pid: int) -> bool:
+    if pid <= 0:
+        return False
+    if sys.platform == "win32":
+        import ctypes
+
+        kernel = ctypes.windll.kernel32  # type: ignore[attr-defined]
+        handle = kernel.OpenProcess(0x1000, False, pid)  # PROCESS_QUERY_LIMITED_INFORMATION
+        if not handle:
+            return False
+        exit_code = ctypes.c_ulong()
+        ret = kernel.GetExitCodeProcess(handle, ctypes.byref(exit_code))
+        kernel.CloseHandle(handle)
+        return bool(ret and exit_code.value == 259)  # STILL_ACTIVE
     try:
         os.kill(pid, 0)
     except OSError:

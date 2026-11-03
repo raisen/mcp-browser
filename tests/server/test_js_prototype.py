@@ -35,7 +35,7 @@ console.log("ok");
 @pytest.mark.skipif(shutil.which("node") is None, reason="node is not installed")
 def test_hostile_names_do_not_pollute_object_prototype() -> None:
     run = subprocess.run(
-        ["node", "--input-type=module", "-e", SCRIPT % {"js": JS}],
+        ["node", "--input-type=module", "-e", SCRIPT % {"js": JS.as_uri()}],
         capture_output=True,
         text=True,
         timeout=30,
@@ -45,4 +45,4 @@ def test_hostile_names_do_not_pollute_object_prototype() -> None:
 
 
 def test_templates_no_longer_index_prompt_args_with_a_plain_object() -> None:
-    assert "promptArgs[p.name] ??= {}" not in (JS / "views" / "detail.js").read_text()
+    assert "promptArgs[p.name] ??= {}" not in (JS / "views" / "detail.js").read_text(encoding="utf-8")

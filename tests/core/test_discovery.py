@@ -44,7 +44,9 @@ def install_all(paths: Paths) -> None:
     shutil.copy(FIXTURES / "plugin-mcp.json", root / ".mcp.json")
     reg = paths.claude_dir() / "plugins" / "installed_plugins.json"
     reg.parent.mkdir(parents=True)
-    reg.write_text((FIXTURES / "plugin-installed.json").read_text().replace("__ROOT__/", f"{root.parent}/"))
+    manifest = json.loads((FIXTURES / "plugin-installed.json").read_text(encoding="utf-8"))
+    manifest["plugins"]["demo@market"][0]["installPath"] = str(root)
+    reg.write_text(json.dumps(manifest), encoding="utf-8")
     ext = paths.claude_desktop_dir() / "Claude Extensions" / "demo-ext" / "manifest.json"
     ext.parent.mkdir(parents=True)
     shutil.copy(FIXTURES / "extension-manifest.json", ext)
@@ -131,7 +133,7 @@ def test_project_scope_files(paths: Paths) -> None:
     (proj / ".cursor" / "mcp.json").write_text('{"mcpServers": {"p-cur": {"command": "x"}}}')
     (proj / ".mcp.json").write_text('{"mcpServers": {"p-cc": {"url": "https://p.test", "type": "http"}}}')
     f = place(paths, "claude-code", "claude-code.json")
-    f.write_text(f'{{"projects": {{"{proj}": {{}}}}}}')
+    f.write_text(json.dumps({"projects": {str(proj): {}}}), encoding="utf-8")
     result = discover(paths)
     project_entries = {e.name: e for e in result.entries if e.scope == "project"}
     assert set(project_entries) == {"p-cur", "p-cc"}

@@ -96,7 +96,8 @@ def test_linux_open_uses_private_launcher_not_url(paths: Paths, monkeypatch: pyt
     assert opened == [page.as_uri()]
     assert "SYNTHETIC" not in opened[0]
     assert "location.replace" in page.read_text(encoding="utf-8")
-    assert stat.S_IMODE(page.stat().st_mode) == 0o600
+    if os.name != "nt":
+        assert stat.S_IMODE(page.stat().st_mode) == 0o600
     launcher.remove_launcher(paths)
     assert not page.exists()
 

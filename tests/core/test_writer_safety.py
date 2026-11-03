@@ -137,7 +137,8 @@ def test_no_bom_added_and_non_ascii_text_untouched(tmp_path: Path, paths: Paths)
 def test_lone_surrogate_round_trips_and_file_stays_editable(tmp_path: Path, paths: Paths) -> None:
     f = tmp_path / "c.json"
     f.write_text(
-        '{"mcpServers": {"a": {"command": "x", "note": "\\ud83d half", "ok": "\\ud83d\\ude00 é"}}}\n'
+        '{"mcpServers": {"a": {"command": "x", "note": "\\ud83d half", "ok": "\\ud83d\\ude00 é"}}}\n',
+        encoding="utf-8",
     )
     run(f, paths, add_one("b"))
     run(f, paths, add_one("c"))
