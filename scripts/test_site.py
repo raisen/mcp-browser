@@ -2,6 +2,7 @@
 
 import functools
 import http.server
+import io
 import re
 import socket
 import sys
@@ -11,10 +12,10 @@ import xml.etree.ElementTree as ET
 from pathlib import Path
 
 # Ensure UTF-8 output on Windows consoles
-if hasattr(sys.stdout, "reconfigure"):
-    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
-if hasattr(sys.stderr, "reconfigure"):
-    sys.stderr.reconfigure(encoding="utf-8", errors="replace")
+if isinstance(sys.stdout, io.TextIOWrapper):
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")  # pyright: ignore[reportUnknownMemberType]
+if isinstance(sys.stderr, io.TextIOWrapper):
+    sys.stderr.reconfigure(encoding="utf-8", errors="replace")  # pyright: ignore[reportUnknownMemberType]
 
 SITE_DIR = Path(__file__).resolve().parent.parent / "site"
 
