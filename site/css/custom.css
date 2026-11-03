@@ -383,21 +383,39 @@
   border-color: var(--brand-primary);
 }
 
+.gallery-card:focus-visible {
+  outline: 2px solid var(--brand-primary);
+  outline-offset: 2px;
+}
+
 .gallery-thumb-wrapper {
+  position: relative;
   overflow: hidden;
   aspect-ratio: 16 / 10;
   background-color: var(--terminal-bg);
 }
 
-.gallery-thumb-wrapper img {
+.gallery-thumb-wrapper img,
+.gallery-thumb-wrapper .gallery-img {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
-  transition: transform 0.3s ease;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.35s ease, transform 0.3s ease;
 }
 
-.gallery-card:hover .gallery-thumb-wrapper img {
+.gallery-thumb-wrapper img.active,
+.gallery-thumb-wrapper .gallery-img.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.gallery-card:hover .gallery-thumb-wrapper img.active,
+.gallery-card:hover .gallery-thumb-wrapper .gallery-img.active {
   transform: scale(1.03);
 }
 
@@ -405,10 +423,79 @@
   padding: 1rem;
 }
 
+.gallery-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.5rem;
+}
+
 .gallery-card-title {
   font-size: 0.95rem;
   font-weight: 600;
-  margin: 0 0 0.35rem;
+  margin: 0;
+  line-height: 1.3;
+}
+
+/* Card Theme Toggle (Light / Dark segmented control) */
+.card-theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  background-color: rgba(0, 0, 0, 0.06);
+  border: 1px solid var(--pico-muted-border-color);
+  border-radius: 9999px;
+  padding: 2px;
+}
+
+[data-theme="dark"] .card-theme-toggle {
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+.theme-tab-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.2rem 0.55rem;
+  margin: 0;
+  font-size: 0.725rem;
+  font-weight: 500;
+  line-height: 1.2;
+  color: var(--pico-muted-color);
+  background: transparent;
+  border: none;
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: background-color var(--transition-smooth), color var(--transition-smooth), box-shadow var(--transition-smooth);
+}
+
+.theme-tab-btn:hover:not(.active) {
+  color: var(--pico-color);
+  background-color: rgba(0, 0, 0, 0.04);
+}
+
+[data-theme="dark"] .theme-tab-btn:hover:not(.active) {
+  background-color: rgba(255, 255, 255, 0.06);
+}
+
+.theme-tab-btn.active {
+  color: var(--pico-color);
+  background-color: #ffffff;
+  font-weight: 600;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+}
+
+[data-theme="dark"] .theme-tab-btn.active {
+  background-color: var(--pico-card-background-color);
+  color: #f8fafc;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
+}
+
+.theme-tab-btn:focus-visible {
+  outline: 2px solid var(--brand-primary);
+  outline-offset: 1px;
 }
 
 .gallery-card-desc {

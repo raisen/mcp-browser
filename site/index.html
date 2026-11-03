@@ -186,52 +186,56 @@
       </div>
 
       <div class="gallery-grid">
-        <article class="gallery-card" data-index="0" tabindex="0" role="button" aria-label="Enlarge Discovered Servers Light Mode">
+        <article class="gallery-card" data-card-id="server-discovery" data-light-index="0" data-dark-index="1" data-current-theme="light" tabindex="0" role="button" aria-label="Enlarge Server Discovery Dashboard (Light Mode)">
           <div class="gallery-thumb-wrapper">
-            <img src="images/screenshots/server-list.png" alt="Discovered Servers overview in Light Mode" loading="lazy">
+            <img class="gallery-img gallery-img-light active" src="images/screenshots/server-list.png" alt="Server Discovery Dashboard in Light Mode" loading="lazy">
+            <img class="gallery-img gallery-img-dark" src="images/screenshots/server-list-dark.png" alt="Server Discovery Dashboard in Dark Mode" loading="lazy">
           </div>
           <div class="gallery-card-body">
-            <h3 class="gallery-card-title">Server Discovery (Light)</h3>
-            <p class="gallery-card-desc">Overview of all discovered MCP servers, transport types, and health states.</p>
+            <div class="gallery-card-header">
+              <h3 class="gallery-card-title">Server Discovery Dashboard</h3>
+              <div class="card-theme-toggle" role="tablist" aria-label="Server Discovery theme toggle">
+                <button type="button" role="tab" class="theme-tab-btn active" data-theme="light" aria-selected="true" tabindex="0" aria-label="Show Light Theme view">
+                  <span aria-hidden="true">☀️</span> Light
+                </button>
+                <button type="button" role="tab" class="theme-tab-btn" data-theme="dark" aria-selected="false" tabindex="-1" aria-label="Show Dark Theme view">
+                  <span aria-hidden="true">🌙</span> Dark
+                </button>
+              </div>
+            </div>
+            <p class="gallery-card-desc">Overview of all discovered MCP servers, transport types, and health states across AI clients.</p>
           </div>
         </article>
 
-        <article class="gallery-card" data-index="1" tabindex="0" role="button" aria-label="Enlarge Discovered Servers Dark Mode">
+        <article class="gallery-card" data-card-id="tool-runner" data-light-index="2" data-dark-index="3" data-current-theme="light" tabindex="0" role="button" aria-label="Enlarge Interactive Tool Runner &amp; Playground (Light Mode)">
           <div class="gallery-thumb-wrapper">
-            <img src="images/screenshots/server-list-dark.png" alt="Discovered Servers overview in Dark Mode" loading="lazy">
+            <img class="gallery-img gallery-img-light active" src="images/screenshots/server-detail.png" alt="Interactive Tool Runner in Light Mode" loading="lazy">
+            <img class="gallery-img gallery-img-dark" src="images/screenshots/server-detail-dark.png" alt="Interactive Tool Runner in Dark Mode" loading="lazy">
           </div>
           <div class="gallery-card-body">
-            <h3 class="gallery-card-title">Server Discovery (Dark)</h3>
-            <p class="gallery-card-desc">Sleek dark theme dashboard with real-time status and filter chips.</p>
+            <div class="gallery-card-header">
+              <h3 class="gallery-card-title">Interactive Tool Runner &amp; Playground</h3>
+              <div class="card-theme-toggle" role="tablist" aria-label="Tool Runner theme toggle">
+                <button type="button" role="tab" class="theme-tab-btn active" data-theme="light" aria-selected="true" tabindex="0" aria-label="Show Light Theme view">
+                  <span aria-hidden="true">☀️</span> Light
+                </button>
+                <button type="button" role="tab" class="theme-tab-btn" data-theme="dark" aria-selected="false" tabindex="-1" aria-label="Show Dark Theme view">
+                  <span aria-hidden="true">🌙</span> Dark
+                </button>
+              </div>
+            </div>
+            <p class="gallery-card-desc">Interactive JSON Schema generated form executing tools in real time with live formatted responses.</p>
           </div>
         </article>
 
-        <article class="gallery-card" data-index="2" tabindex="0" role="button" aria-label="Enlarge Server Detail and Tool Execution Light Mode">
+        <article class="gallery-card" data-card-id="multi-client" data-light-index="4" data-dark-index="4" data-current-theme="light" tabindex="0" role="button" aria-label="Enlarge Multi-Client Configuration screenshot">
           <div class="gallery-thumb-wrapper">
-            <img src="images/screenshots/server-detail.png" alt="Server detail view with interactive tool form in Light Mode" loading="lazy">
+            <img class="gallery-img active" src="images/screenshots/add-server.png" alt="Add server dialog writing to multiple AI clients simultaneously" loading="lazy">
           </div>
           <div class="gallery-card-body">
-            <h3 class="gallery-card-title">Tool Execution (Light)</h3>
-            <p class="gallery-card-desc">Interactive JSON Schema generated form executing tools in real time.</p>
-          </div>
-        </article>
-
-        <article class="gallery-card" data-index="3" tabindex="0" role="button" aria-label="Enlarge Server Detail and Tool Execution Dark Mode">
-          <div class="gallery-thumb-wrapper">
-            <img src="images/screenshots/server-detail-dark.png" alt="Server detail view with interactive tool form in Dark Mode" loading="lazy">
-          </div>
-          <div class="gallery-card-body">
-            <h3 class="gallery-card-title">Tool Execution (Dark)</h3>
-            <p class="gallery-card-desc">Dark theme tool tester displaying formatted execution responses.</p>
-          </div>
-        </article>
-
-        <article class="gallery-card" data-index="4" tabindex="0" role="button" aria-label="Enlarge Multi-Client Server Configuration">
-          <div class="gallery-thumb-wrapper">
-            <img src="images/screenshots/add-server.png" alt="Add server dialog writing to multiple AI clients simultaneously" loading="lazy">
-          </div>
-          <div class="gallery-card-body">
-            <h3 class="gallery-card-title">Multi-Client Provisioning</h3>
+            <div class="gallery-card-header">
+              <h3 class="gallery-card-title">Multi-Client Configuration</h3>
+            </div>
             <p class="gallery-card-desc">Add or edit servers across multiple clients simultaneously with atomic safety.</p>
           </div>
         </article>

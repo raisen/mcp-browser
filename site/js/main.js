@@ -6,6 +6,7 @@
 
 document.addEventListener('DOMContentLoaded', () => {
   initTheme();
+  initCardThemeToggles();
   initTerminalTabs();
   initCopyButtons();
   initLightbox();
@@ -14,6 +15,33 @@ document.addEventListener('DOMContentLoaded', () => {
 /* --------------------------------------------------------------------------
    Theme Management (Light / Dark Mode)
    -------------------------------------------------------------------------- */
+function setCardTheme(card, theme) {
+  card.setAttribute('data-current-theme', theme);
+  const titleEl = card.querySelector('.gallery-card-title');
+  const baseTitle = titleEl ? titleEl.textContent.trim() : 'Screenshot';
+  const themeLabel = theme === 'dark' ? 'Dark Mode' : 'Light Mode';
+  card.setAttribute('aria-label', `Enlarge ${baseTitle} (${themeLabel})`);
+
+  // Update tabs in segmented toggle
+  const tabs = card.querySelectorAll('.card-theme-toggle [role="tab"]');
+  tabs.forEach((tab) => {
+    const isTarget = tab.getAttribute('data-theme') === theme;
+    tab.classList.toggle('active', isTarget);
+    tab.setAttribute('aria-selected', isTarget ? 'true' : 'false');
+    tab.setAttribute('tabindex', isTarget ? '0' : '-1');
+  });
+
+  // Update image visibility with smooth cross-fade
+  const lightImg = card.querySelector('.gallery-img-light');
+  const darkImg = card.querySelector('.gallery-img-dark');
+  if (lightImg) {
+    lightImg.classList.toggle('active', theme === 'light');
+  }
+  if (darkImg) {
+    darkImg.classList.toggle('active', theme === 'dark');
+  }
+}
+
 function initTheme() {
   const toggleBtn = document.getElementById('theme-toggle');
   const heroImg = document.getElementById('hero-img');
@@ -29,6 +57,12 @@ function initTheme() {
     if (heroImg) {
       heroImg.src = theme === 'dark' ? 'images/screenshots/server-list-dark.png' : 'images/screenshots/server-list.png';
     }
+    // Synchronize gallery cards with global theme
+    document.querySelectorAll('.gallery-card').forEach((card) => {
+      if (card.querySelector('.card-theme-toggle')) {
+        setCardTheme(card, theme);
+      }
+    });
   }
 
   // Initialize theme
@@ -53,6 +87,60 @@ function initTheme() {
     if (!localStorage.getItem('mcp-theme')) {
       applyTheme(e.matches ? 'dark' : 'light');
     }
+  });
+}
+
+/* --------------------------------------------------------------------------
+   Card-Level Theme Toggles
+   -------------------------------------------------------------------------- */
+function initCardThemeToggles() {
+  const cards = document.querySelectorAll('.gallery-card');
+
+  cards.forEach((card) => {
+    const toggle = card.querySelector('.card-theme-toggle');
+    if (!toggle) return;
+
+    const tabs = Array.from(toggle.querySelectorAll('[role="tab"]'));
+
+    tabs.forEach((tab) => {
+      // Click toggle button
+      tab.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const theme = tab.getAttribute('data-theme');
+        if (theme) {
+          setCardTheme(card, theme);
+          tab.focus();
+        }
+      });
+
+      // Keyboard arrow navigation for tabs
+      tab.addEventListener('keydown', (e) => {
+        let targetTab = null;
+        if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+          e.preventDefault();
+          e.stopPropagation();
+          const nextIndex = (tabs.indexOf(tab) + 1) % tabs.length;
+          targetTab = tabs[nextIndex];
+        } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+          e.preventDefault();
+          e.stopPropagation();
+          const prevIndex = (tabs.indexOf(tab) - 1 + tabs.length) % tabs.length;
+          targetTab = tabs[prevIndex];
+        } else if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          e.stopPropagation();
+          targetTab = tab;
+        }
+
+        if (targetTab) {
+          const theme = targetTab.getAttribute('data-theme');
+          if (theme) {
+            setCardTheme(card, theme);
+            targetTab.focus();
+          }
+        }
+      });
+    });
   });
 }
 
@@ -167,27 +255,27 @@ function triggerCopyFeedback(button) {
 const GALLERY_ITEMS = [
   {
     src: 'images/screenshots/server-list.png',
-    title: 'Discovered Servers & Transport Overview (Light Theme)',
+    title: 'Server Discovery Dashboard (Light Theme)',
     desc: 'Lists all MCP servers found on the machine across multiple client configurations.'
   },
   {
     src: 'images/screenshots/server-list-dark.png',
-    title: 'Discovered Servers & Transport Overview (Dark Theme)',
+    title: 'Server Discovery Dashboard (Dark Theme)',
     desc: 'Clean dark mode overview with real-time health indicator and transport badges.'
   },
   {
     src: 'images/screenshots/server-detail.png',
-    title: 'Server Detail & Interactive Tool Execution (Light Theme)',
+    title: 'Interactive Tool Runner & Playground (Light Theme)',
     desc: 'Dynamically generated form from JSON Schema allowing direct browser tool execution.'
   },
   {
     src: 'images/screenshots/server-detail-dark.png',
-    title: 'Server Detail & Interactive Tool Execution (Dark Theme)',
+    title: 'Interactive Tool Runner & Playground (Dark Theme)',
     desc: 'Dark theme interactive tool tester showing real-time execution results.'
   },
   {
     src: 'images/screenshots/add-server.png',
-    title: 'Multi-Client Server Configuration',
+    title: 'Multi-Client Configuration',
     desc: 'Configure once and write to multiple clients simultaneously with atomic safety.'
   }
 ];
@@ -253,17 +341,22 @@ function initLightbox() {
   }
 
   // Trigger from gallery cards
-  const galleryCards = document.querySelectorAll('.gallery-card[data-index]');
+  const galleryCards = document.querySelectorAll('.gallery-card');
   galleryCards.forEach((card) => {
-    card.addEventListener('click', () => {
-      const index = parseInt(card.getAttribute('data-index') || '0', 10);
+    function openCardModal(e) {
+      if (e.target.closest('.card-theme-toggle')) return;
+      const currentTheme = card.getAttribute('data-current-theme') || 'light';
+      const indexAttr = currentTheme === 'dark' ? card.getAttribute('data-dark-index') : card.getAttribute('data-light-index');
+      const index = parseInt(indexAttr ?? card.getAttribute('data-index') ?? '0', 10);
       openModal(index);
-    });
+    }
+
+    card.addEventListener('click', openCardModal);
     card.addEventListener('keydown', (e) => {
+      if (e.target.closest('.card-theme-toggle')) return;
       if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
-        const index = parseInt(card.getAttribute('data-index') || '0', 10);
-        openModal(index);
+        openCardModal(e);
       }
     });
   });

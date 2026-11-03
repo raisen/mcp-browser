@@ -79,11 +79,9 @@ Unblock-File -Path .\mcp-browser\mcp-browser.exe
 
 ## Screenshots
 
-- **Server Discovery (Light Mode)**: Overview of all discovered servers and their transport status (`images/screenshots/server-list.png`)
-- **Server Discovery (Dark Mode)**: Dark theme overview with filtering and client chips (`images/screenshots/server-list-dark.png`)
-- **Server Detail & Tool Execution (Light Mode)**: Interactive schema form and live tool response (`images/screenshots/server-detail.png`)
-- **Server Detail & Tool Execution (Dark Mode)**: Dark theme interactive tool playground (`images/screenshots/server-detail-dark.png`)
-- **Add Server to Multiple Clients**: Multi-target selection and safe atomic writer (`images/screenshots/add-server.png`)
+- **Server Discovery Dashboard**: Unified dashboard with Light and Dark view toggling, showing all discovered servers, transport status, and client integrations (`images/screenshots/server-list.png`, `images/screenshots/server-list-dark.png`)
+- **Interactive Tool Runner & Playground**: Interactive JSON Schema-generated form and live tool response with Light and Dark toggle (`images/screenshots/server-detail.png`, `images/screenshots/server-detail-dark.png`)
+- **Multi-Client Configuration**: Multi-target selection and safe atomic configuration modal (`images/screenshots/add-server.png`)
 
 ---
 

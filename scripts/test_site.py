@@ -171,6 +171,18 @@ def run_tests():
         assert local_file.exists(), f"Broken internal link/src in index.html: {target} -> {local_file}"
     print("✓ All internal references (CSS, JS, images, links) exist on disk")
 
+    # Check interactive gallery cards and theme toggles
+    gallery_card_count = html.count('class="gallery-card"')
+    assert gallery_card_count == 3, f"Expected 3 gallery cards, found {gallery_card_count}"
+    assert "Server Discovery Dashboard" in html
+    assert "Interactive Tool Runner &amp; Playground" in html
+    assert "Multi-Client Configuration" in html
+    assert 'class="card-theme-toggle"' in html
+    assert 'data-theme="light"' in html
+    assert 'data-theme="dark"' in html
+    assert "style=" not in html, "Found inline style attribute! Strict CSS separation required."
+    print("✓ Unified interactive screenshot cards and theme toggles verified")
+
     # Check llms.txt & llms-full.txt
     llms_txt = (SITE_DIR / "llms.txt").read_text()
     assert llms_txt.startswith("# MCP Browser")
