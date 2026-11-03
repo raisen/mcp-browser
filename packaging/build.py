@@ -109,7 +109,9 @@ def fix_framework_symlinks(bundle: Path) -> None:
     versions_dir = fw / "Versions"
     if not versions_dir.is_dir():
         return
-    vers = [p.name for p in versions_dir.iterdir() if p.is_dir() and not p.is_symlink() and p.name != "Current"]
+    vers = [
+        p.name for p in versions_dir.iterdir() if p.is_dir() and not p.is_symlink() and p.name != "Current"
+    ]
     if not vers:
         return
     current = versions_dir / "Current"
