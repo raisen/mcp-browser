@@ -623,6 +623,17 @@
   transition: transform var(--transition-smooth), box-shadow var(--transition-smooth), border-color var(--transition-smooth);
 }
 
+.download-card-body {
+  display: flex;
+  flex-direction: column;
+}
+
+.download-card-actions {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+}
+
 .download-card:hover {
   transform: translateY(-3px);
   box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.1);
@@ -667,8 +678,14 @@
 
 .download-subtext {
   font-size: 0.775rem;
+  line-height: 1.5;
   text-align: center;
   margin: 0.5rem 0 0;
+}
+
+.download-subtext-placeholder {
+  visibility: hidden;
+  user-select: none;
 }
 
 .download-subtext a {
