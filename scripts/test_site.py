@@ -113,6 +113,12 @@ def run_tests():
     assert '<script type="text/markdown">' in html
     print("✓ LLM alternate links and embedded markdown script tag verified")
 
+    # Analytics: Umami
+    assert 'src="https://insights.raisenllc.com/script.js"' in html
+    assert 'data-website-id="c3f46a00-e114-472e-a2af-8d8b6492650d"' in html
+    assert 'data-domains="mcpbrowser.weydson.com"' in html
+    print("✓ Umami analytics script and website ID verified")
+
     # Section comment headers
     expected_headers = [
         "<!-- Header & Navigation -->",
