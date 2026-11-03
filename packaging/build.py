@@ -204,7 +204,7 @@ def build(out: Path, identity: str | None = None) -> Path:
             sign_bundle(bundle, exe, sign_id)
         smoke_test(bundle, exe)
         zip_path = create_archive(bundle, out / archive_name())
-        if sys.platform == "darwin":
+        if sys.platform == "darwin" and sign_id:
             dmg_path = _build_dmg(bundle, out, sign_id)
             if dmg_path:
                 print(f"sha256 {sha256(dmg_path)}  {dmg_path.name}")
