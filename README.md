@@ -40,6 +40,7 @@ Download the disk image from the [Releases](https://github.com/raisen/mcp-browse
 - **Control Panel:** Real-time health polling, custom port selection, and easy server management.
 - **Auto-Updates:** Checks GitHub Releases on launch and on demand; downloads and applies updates with one-click update & restart.
 - **Self-Contained:** The complete CLI distribution is embedded inside the app bundle. Zero Python runtime or dependencies required.
+- **Signed & Notarized:** Signed with an Apple Developer ID certificate, notarized by Apple, and ticket stapled. Launches immediately without Gatekeeper warnings.
 
 ### With uv (recommended for CLI)
 
@@ -67,8 +68,8 @@ uv tool install "git+https://github.com/raisen/mcp-browser#subdirectory=packages
 
 Download the zip for your system from the [Releases](https://github.com/raisen/mcp-browser/releases) page
 (`macos-arm64`, `macos-x86_64`, `windows-x86_64`, `linux-x86_64`), unzip it and run `mcp-browser/mcp-browser`
-(`mcp-browser.exe` on Windows). The binaries are not code-signed: see
-[Gatekeeper, SmartScreen and checksums](#gatekeeper-smartscreen-and-checksums).
+(`mcp-browser.exe` on Windows). See
+[Integrity and checksums](#integrity-and-checksums).
 
 ### From source
 
@@ -190,14 +191,18 @@ elsewhere, put `{"client-id": ["/path/to/file"]}` in `paths.json` in the state f
 - Plugin and extension sources are read-only; no marketplace or registry install; no editing of enable
   flags beyond keeping the fields that exist; no persistent sessions; no automatic restart of other apps.
 
-## Gatekeeper, SmartScreen and checksums
+## Integrity and checksums
 
-The prebuilt binaries are not signed or notarized, so the operating system warns on first run.
-
-- **macOS (Gatekeeper):** For the `.app`, right-click and choose Open, or use System Settings, Privacy & Security, Open Anyway (or run `xattr -dr com.apple.quarantine "/Applications/MCP Browser.app"`). For the CLI zip, run `xattr -dr com.apple.quarantine mcp-browser`.
-- **Windows (SmartScreen):** choose More info, then Run anyway; or run
-  `Unblock-File -Path .\mcp-browser\mcp-browser.exe` in PowerShell after unzipping.
-- **Verify the download.** Each release has a `SHA256SUMS.txt`. Compare before you run anything:
+- **macOS App (.dmg):** Official `.dmg` releases are signed with an Apple Developer ID certificate and notarized by Apple with stapled tickets. Gatekeeper validates and allows them to run without security warnings.
+- **Windows standalone (.zip):** Windows SmartScreen may show a prompt for newly downloaded zip binaries. Choose **More info** &rarr; **Run anyway**, or unblock in PowerShell:
+  ```powershell
+  Unblock-File -Path .\mcp-browser\mcp-browser.exe
+  ```
+- **macOS standalone CLI (.zip):** If using the raw CLI zip rather than the signed `.dmg`, clear the quarantine attribute:
+  ```sh
+  xattr -dr com.apple.quarantine mcp-browser
+  ```
+- **Verify download integrity:** Each release includes `SHA256SUMS.txt` covering both `.dmg` disk images and `.zip` archives. Verify with:
 
 ```sh
 shasum -a 256 -c SHA256SUMS.txt --ignore-missing      # macOS
@@ -205,7 +210,7 @@ sha256sum -c SHA256SUMS.txt --ignore-missing           # Linux
 ```
 
 ```powershell
-(Get-FileHash .\mcp-browser-X.Y.Z-windows-x86_64.zip -Algorithm SHA256).Hash   # compare with the file
+(Get-FileHash .\mcp-browser-X.Y.Z-windows-x86_64.zip -Algorithm SHA256).Hash   # compare with SHA256SUMS.txt
 ```
 
 ## Development
