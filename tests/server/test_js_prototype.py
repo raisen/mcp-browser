@@ -35,7 +35,7 @@ console.log("ok");
 @pytest.mark.skipif(shutil.which("node") is None, reason="node is not installed")
 def test_hostile_names_do_not_pollute_object_prototype() -> None:
     run = subprocess.run(
-        ["node", "--experimental-default-type=module", "-e", SCRIPT % {"js": JS}],
+        ["node", "--input-type=module", "-e", SCRIPT % {"js": JS}],
         capture_output=True,
         text=True,
         timeout=30,
