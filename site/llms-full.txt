@@ -1,0 +1,195 @@
+# MCP Browser: Comprehensive Technical Reference
+
+> Official comprehensive technical reference for MCP Browser (`mcp-browser`).
+> Website: https://mcpbrowser.weydson.com/
+> Repository: https://github.com/weydson/mcp-browser
+> Author: Weydson
+> License: MIT
+
+---
+
+## 1. Executive Summary
+
+MCP Browser is an open-source, local-first developer tool that discovers, explores, tests, and manages Model Context Protocol (MCP) servers across all major AI coding assistants installed on a developer's machine.
+
+Instead of requiring developers to manually edit fragile JSON and TOML configuration files across multiple editors, MCP Browser provides:
+1. **Centralized Discovery**: Scans and aggregates server configurations across 10+ AI tools (Claude Code, Claude Desktop, Cursor, VS Code, Windsurf, Zed, Codex, Gemini CLI, Antigravity, Cline).
+2. **Interactive Playground**: Connects to any discovered stdio or SSE server, parses its advertised capabilities (tools, prompts, resources), dynamically builds HTML form inputs conforming to JSON Schema specifications, and executes tools directly in the browser with real-time response rendering.
+3. **Safe Multi-Client Configuration Editor**: Adds, edits, or deletes servers across multiple client targets simultaneously using atomic file replacement and automatic timestamped file backups.
+4. **Hardened Local Security**: Implements strict loopback binding (`127.0.0.1`), DNS rebinding defenses (strict `Host` and `Origin` validation), fragment-based bearer token transmission (`#token=...`), secret masking, and an explicit consent barrier for untrusted project-level configurations.
+
+---
+
+## 2. Installation & Quick Start
+
+### 2.1 Using Astral uv (Recommended)
+
+Requires Python 3.11+. `uv` isolates the executable into its own dedicated environment:
+
+```sh
+uv tool install mcp-browser
+mcp-browser
+```
+
+To install directly from the GitHub repository:
+
+```sh
+uv tool install "git+https://github.com/weydson/mcp-browser#subdirectory=packages/cli"
+```
+
+If `uv` is not yet installed:
+- macOS / Linux: `curl -LsSf https://astral.sh/uv/install.sh | sh`
+- Windows (PowerShell): `powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"`
+
+### 2.2 Using Standard pip
+
+```sh
+pip install mcp-browser
+mcp-browser
+```
+
+### 2.3 Standalone Prebuilt Binaries (Zero Dependencies)
+
+Standalone bundles packaged with PyInstaller require no Python installation or external runtimes:
+
+- **macOS Apple Silicon (arm64)**:
+  `https://github.com/weydson/mcp-browser/releases/latest/download/mcp-browser-0.1.0-macos-arm64.zip`
+- **macOS Intel (x86_64)**:
+  `https://github.com/weydson/mcp-browser/releases/latest/download/mcp-browser-0.1.0-macos-x86_64.zip`
+- **Windows (x86_64)**:
+  `https://github.com/weydson/mcp-browser/releases/latest/download/mcp-browser-0.1.0-windows-x86_64.zip`
+- **Linux (x86_64)**:
+  `https://github.com/weydson/mcp-browser/releases/latest/download/mcp-browser-0.1.0-linux-x86_64.zip`
+- **SHA256 Checksums**:
+  `https://github.com/weydson/mcp-browser/releases/latest/download/SHA256SUMS.txt`
+
+### 2.4 From Source Repository
+
+```sh
+git clone https://github.com/weydson/mcp-browser
+cd mcp-browser
+uv sync --all-packages
+uv run mcp-browser
+```
+
+---
+
+## 3. CLI Command Reference
+
+The `mcp-browser` CLI manages the server lifecycle, handles daemonizing, detects active port listeners, and dispatches the browser with secured auth tokens.
+
+| Command | Description |
+|---|---|
+| `mcp-browser` or `mcp-browser serve` | Runs the server in the foreground. Prints the launch URL and opens the default web browser. Press `Ctrl+C` to terminate. |
+| `mcp-browser start` | Spawns the server as a background daemon, logs output to `server.log` in the platform state directory, and launches the browser. |
+| `mcp-browser stop` | Gracefully stops the background server daemon. Verifies target PID identity against `/healthz` before issuing termination signals. |
+| `mcp-browser status` | Checks server health. Outputs `running` (exit code 0) or `stopped` (exit code 1). |
+| `mcp-browser open` | Opens the web browser to the URL and active session token of an already running server instance. |
+
+### Global Flags
+
+- `--port <PORT>`: Specify local TCP port (default: `8765`). If the port is occupied by another process, `mcp-browser` aborts without exposing credentials.
+- `--no-open`: Prevents automatic browser launch; prints the full authorized loopback URL to `stdout`.
+
+---
+
+## 4. State Storage Locations
+
+Operational state (bearer auth tokens, PID tracking files, server logs, tool catalog caches, and configuration backups) is stored in standard OS application folders:
+
+- **macOS**: `~/Library/Application Support/mcp-browser`
+- **Linux**: `$XDG_STATE_HOME/mcp-browser` (defaults to `~/.local/state/mcp-browser`)
+- **Windows**: `%LOCALAPPDATA%\mcp-browser`
+- **Custom Override**: Set the `MCP_BROWSER_STATE_DIR` environment variable to relocate all state files.
+
+---
+
+## 5. Client Configuration & Compatibility Matrix
+
+MCP Browser automatically locates user-level configurations and scans the current working directory and known Claude Code workspace roots for project-level files:
+
+| Client ID | User Configuration Path | Project Configuration Path | Transports Supported |
+|---|---|---|---|
+| `claude-code` | `~/.claude.json` (or `$CLAUDE_CONFIG_DIR/.claude.json`) | `.mcp.json` | stdio, SSE |
+| `claude-desktop` | macOS: `~/Library/Application Support/Claude/claude_desktop_config.json`<br>Linux: `~/.config/Claude/claude_desktop_config.json`<br>Windows: `%APPDATA%\Claude\claude_desktop_config.json` | None | stdio only |
+| `codex` | `~/.codex/config.toml` (or `$CODEX_HOME`) | `.codex/config.toml` | stdio only |
+| `gemini-cli` | `~/.gemini/settings.json` | `.gemini/settings.json` | stdio, SSE |
+| `antigravity` | `~/.gemini/config/mcp_config.json` or `~/.gemini/antigravity/mcp_config.json` | None | stdio, SSE |
+| `cursor` | `~/.cursor/mcp.json` | `.cursor/mcp.json` | stdio, SSE |
+| `vscode` | macOS: `~/Library/Application Support/Code/User/mcp.json`<br>Linux: `~/.config/Code/User/mcp.json`<br>Windows: `%APPDATA%\Code\User\mcp.json` | `.vscode/mcp.json` | stdio, SSE |
+| `windsurf` | `~/.codeium/windsurf/mcp_config.json` | None | stdio, SSE |
+| `zed` | macOS/Linux: `~/.config/zed/settings.json`<br>Windows: `%APPDATA%\Zed\settings.json` | `.zed/settings.json` | stdio, SSE |
+| `cline` | VS Code extension storage or `~/.cline/data/settings/cline_mcp_settings.json` | None | stdio, SSE |
+| `claude-plugins` | `~/.claude/plugins/installed_plugins.json` (read-only) | None | stdio, SSE |
+| `claude-extensions` | `Claude Extensions/*/manifest.json` in Claude Desktop directory (read-only) | None | stdio |
+
+To define custom file locations for any client, developers can populate `paths.json` in the state folder with:
+```json
+{
+  "client-id": ["/custom/path/to/config.json"]
+}
+```
+
+---
+
+## 6. Safe Configuration Engine
+
+Modifying developer configuration files demands absolute precision and zero data loss:
+
+1. **Surgical Key Updates**: Only the targeted MCP server entry is inserted, updated, or removed. Neighboring configurations, unknown settings, file indentation, and trailing newlines are strictly preserved.
+2. **Pre-Write Timestamped Backups**: Prior to modifying any existing configuration file, the original version is copied to `backups/` in the state directory as `<filename>.<UTC_TIMESTAMP>`. The 20 most recent revisions per file are automatically retained.
+3. **Atomic File Swapping**: New content is written to a temporary sibling file and swapped into place using OS-level atomic replace operations. If a file was modified concurrently by another application, conflict detection prevents overwrite.
+4. **Format Fidelity**:
+   - TOML files (`.codex/config.toml`) maintain full semantic comments and layout.
+   - For JSONC files containing comments (Cursor, VS Code), mcp-browser alerts the user before writing because standard JSON serialization drops comments.
+   - Zed's global `settings.json` governs entire IDE preferences; if it contains user comments, mcp-browser refuses rewrite to prevent accidental comment loss.
+5. **Multi-Target Atomic Validation**: When provisioning one server across multiple clients, all client target files and transport compatibility constraints are verified prior to writing.
+
+---
+
+## 7. Security Architecture
+
+1. **Loopback-Only Interface**:
+   The HTTP server binds strictly to `127.0.0.1`. Network access across LAN interfaces or WAN is blocked by design.
+2. **DNS Rebinding Defense**:
+   Incoming HTTP requests must match authorized `Host` header values (`127.0.0.1:<port>` or `localhost:<port>`). Requests specifying unexpected `Host` headers or untrusted browser `Origin` headers are immediately rejected with HTTP 403.
+3. **Fragment-Based Bearer Token**:
+   Authentication tokens are cryptographically generated (32 bytes entropy), written to disk with restrictive file permissions (mode `0600`), and supplied to the frontend exclusively via the URL hash fragment (`http://127.0.0.1:8765/#token=<SECRET>`). Because URL fragments are never transmitted to HTTP servers in request lines or headers, tokens cannot leak into web server access logs or network proxies. The client frontend extracts the token into memory on initialization and strips the hash fragment from the address bar.
+4. **Untrusted Project Configuration Guard**:
+   Project-level configurations located inside repository checkouts (`.mcp.json`, `.vscode/mcp.json`, `.cursor/mcp.json`) can be committed by untrusted third parties. MCP Browser treats all project configurations as untrusted. Connecting, reading resources, or invoking tools on a project-level server returns HTTP 409 (`confirmation_required`) until the user explicitly reviews the exact executable command, arguments, environment variable names, and passes `confirm_untrusted: true`. `Scan All` automatically skips untrusted servers.
+5. **Secret Masking & Sanitization**:
+   Sensitive configuration fields, API tokens, authorization bearer headers, and command-line arguments matching credential patterns are masked (`•••`) in web UI responses. Process stderr captures are scrubbed of expanded secret values before display.
+6. **Strict Content Security Policy (CSP)**:
+   HTTP responses enforce:
+   `default-src 'self'; frame-ancestors 'none'; X-Content-Type-Options: nosniff; Referrer-Policy: no-referrer;`
+7. **Resource Bounds**:
+   Process stderr history is capped at 4 KB; discovery scans are bounded at 100 pages / 5,000 items; tool execution payloads exceeding 10 MB are truncated with warning indicators.
+
+---
+
+## 8. Operating System Verification Notes
+
+### macOS Gatekeeper
+Standalone PyInstaller binaries are not Apple-notarized. To clear the macOS quarantine attribute after downloading and extracting:
+```sh
+xattr -dr com.apple.quarantine mcp-browser
+```
+Alternatively: System Settings -> Privacy & Security -> Click "Open Anyway".
+
+### Windows SmartScreen
+To unblock downloaded zip contents via PowerShell:
+```powershell
+Unblock-File -Path .\mcp-browser\mcp-browser.exe
+```
+
+### Cryptographic Checksum Verification
+```sh
+# macOS
+shasum -a 256 -c SHA256SUMS.txt --ignore-missing
+
+# Linux
+sha256sum -c SHA256SUMS.txt --ignore-missing
+
+# Windows (PowerShell)
+(Get-FileHash .\mcp-browser-0.1.0-windows-x86_64.zip -Algorithm SHA256).Hash
+```

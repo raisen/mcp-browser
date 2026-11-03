@@ -8,7 +8,7 @@ from pathlib import Path
 
 LIMIT = 250
 SUFFIXES = {".py", ".js", ".css", ".html"}
-EXCLUDED_PARTS = ("static/vendor/",)
+EXCLUDED_PARTS = ("static/vendor/", "site/")
 EXCLUDED_NAMES = {"uv.lock"}
 
 

@@ -28,6 +28,7 @@ jobs:
       - run: uv run pyright
       - run: uv run pytest
       - run: uv run python scripts/check_lines.py
+      - run: uv run python scripts/test_site.py
 
   bundle:
     name: PyInstaller smoke build

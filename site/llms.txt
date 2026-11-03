@@ -1,0 +1,53 @@
+# MCP Browser
+
+> A local web page that lists, searches, and runs every Model Context Protocol (MCP) server configured on your machine, and adds, edits, and deletes them by safely rewriting the real config files of your AI coding assistants.
+
+MCP Browser connects to servers locally over stdio and Server-Sent Events (SSE), dynamically generates interactive test forms from JSON Schema specifications, and lets developers test tools, resources, and prompts directly in their web browser. All state remains strictly on the loopback interface (`127.0.0.1`) with bearer token authentication, strict Content Security Policy, and zero telemetry.
+
+## Documentation & Links
+
+- [Full LLM Reference](https://mcpbrowser.weydson.com/llms-full.txt): Complete, in-depth technical documentation covering CLI commands, security boundaries, client config dialects, and safety guarantees.
+- [Homepage Markdown](https://mcpbrowser.weydson.com/index.md): Direct markdown mirror of the mcpbrowser.weydson.com homepage.
+- [GitHub Repository](https://github.com/weydson/mcp-browser): Source code, bug reports, and discussion.
+- [GitHub Releases](https://github.com/weydson/mcp-browser/releases): Release notes and binary downloads.
+- [PyPI Package](https://pypi.org/project/mcp-browser/): Published wheels and source distributions.
+
+## Quick Installation
+
+- **uv (Recommended)**: `uv tool install mcp-browser && mcp-browser`
+- **pip**: `pip install mcp-browser && mcp-browser`
+- **From Source**: `git clone https://github.com/weydson/mcp-browser && cd mcp-browser && uv sync --all-packages && uv run mcp-browser`
+
+## Prebuilt Binaries (v0.1.0)
+
+Prebuilt standalone binaries require no Python runtime or dependencies:
+
+- [macOS Apple Silicon (arm64)](https://github.com/weydson/mcp-browser/releases/latest/download/mcp-browser-0.1.0-macos-arm64.zip): macOS 12+ on Apple Silicon (M1/M2/M3/M4)
+- [macOS Intel (x86_64)](https://github.com/weydson/mcp-browser/releases/latest/download/mcp-browser-0.1.0-macos-x86_64.zip): macOS 12+ on Intel processors
+- [Windows (x86_64)](https://github.com/weydson/mcp-browser/releases/latest/download/mcp-browser-0.1.0-windows-x86_64.zip): Windows 10/11 64-bit
+- [Linux (x86_64)](https://github.com/weydson/mcp-browser/releases/latest/download/mcp-browser-0.1.0-linux-x86_64.zip): glibc 2.31+ x86_64 distributions
+- [SHA256 Checksums](https://github.com/weydson/mcp-browser/releases/latest/download/SHA256SUMS.txt): Cryptographic verification file
+
+## Supported AI Coding Clients
+
+MCP Browser automatically locates and updates configurations for:
+
+- Claude Code (`~/.claude.json`, `.mcp.json`)
+- Claude Desktop (`claude_desktop_config.json`)
+- Cursor (`~/.cursor/mcp.json`, `.cursor/mcp.json`)
+- VS Code (`Code/User/mcp.json`, `.vscode/mcp.json`)
+- Windsurf (`~/.codeium/windsurf/mcp_config.json`)
+- Zed (`~/.config/zed/settings.json`, `.zed/settings.json`)
+- Codex (`~/.codex/config.toml`, `.codex/config.toml`)
+- Gemini CLI (`~/.gemini/settings.json`, `.gemini/settings.json`)
+- Antigravity (`mcp_config.json`)
+- Cline (`cline_mcp_settings.json`)
+- Claude Code Plugins & Claude Desktop Extensions (read-only inspection)
+
+## Core Architectural Guarantees
+
+- **Loopback Only**: Binds exclusively to `127.0.0.1`. Requests with non-local `Host` or foreign `Origin` are rejected to block DNS rebinding.
+- **Hash-Fragment Auth Token**: High-entropy session token is passed via `#token=...` hash fragment so it is never sent in HTTP request headers or logged in browser access histories.
+- **Atomic Writes & 20 Backups**: Configuration rewrites save a timestamped copy to `backups/` before any file is touched. Atomic rename swaps files safely.
+- **Secret Masking**: Sensitive tokens, API keys, and environment variables are masked (`•••`) in the UI and scrubbed from stderr before display.
+- **Untrusted Repo Guard**: Project-level configurations require explicit confirmation before connection or tool calls can execute (`confirm_untrusted: true`).

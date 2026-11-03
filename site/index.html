@@ -1,0 +1,593 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+
+  <!-- Search Engine Only SEO (Strictly Zero Social Media Tags) -->
+  <title>MCP Browser — Browse, Search, Test &amp; Manage All Your MCP Servers</title>
+  <meta name="description" content="A local-first web UI to browse, search, test, and manage Model Context Protocol (MCP) servers across Claude Code, Cursor, VS Code, Windsurf, Zed, and other AI coding assistants.">
+  <meta name="keywords" content="mcp, model context protocol, mcp browser, ai coding assistants, claude code, claude desktop, cursor, windsurf, vs code, zed, codex, gemini cli, antigravity, developer tools">
+  <meta name="author" content="Weydson">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://mcpbrowser.weydson.com/">
+
+  <!-- LLM-Friendly Alternate Versions -->
+  <link rel="alternate" type="text/markdown" href="/llms.txt" title="LLM version of this site">
+  <link rel="alternate" type="text/markdown" href="/index.md" title="Markdown version of this page">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="icon" type="image/png" href="images/logo.png">
+
+  <!-- Stylesheets (Zero External CDNs, Fully Self-Contained) -->
+  <link rel="stylesheet" href="css/pico.min.css">
+  <link rel="stylesheet" href="css/custom.css">
+
+  <!-- Schema.org JSON-LD Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "SoftwareApplication",
+        "name": "MCP Browser",
+        "operatingSystem": "macOS, Windows, Linux",
+        "applicationCategory": "DeveloperApplication",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "description": "A local web UI to browse, search, test, and manage Model Context Protocol (MCP) servers across all your AI coding assistants.",
+        "url": "https://mcpbrowser.weydson.com/",
+        "downloadUrl": "https://github.com/weydson/mcp-browser/releases",
+        "softwareVersion": "0.1.0",
+        "author": {
+          "@type": "Person",
+          "name": "Weydson"
+        }
+      },
+      {
+        "@type": "WebSite",
+        "name": "MCP Browser",
+        "url": "https://mcpbrowser.weydson.com/",
+        "description": "A local web UI to browse, search, test, and manage Model Context Protocol (MCP) servers across all your AI coding assistants.",
+        "publisher": {
+          "@type": "Person",
+          "name": "Weydson"
+        }
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+
+  <!-- Header & Navigation -->
+  <header class="site-header">
+    <div class="container">
+      <nav aria-label="Main Navigation">
+        <ul>
+          <li>
+            <a href="#" class="brand-wrapper">
+              <img src="images/logo.png" alt="mcp-browser logo" width="32" height="32" class="brand-logo">
+              <span>mcp-browser</span>
+              <span class="version-badge">v0.1.0</span>
+            </a>
+          </li>
+        </ul>
+        <ul class="nav-links">
+          <li><a href="#features">Features</a></li>
+          <li><a href="#gallery">Screenshots</a></li>
+          <li><a href="#install">Install</a></li>
+          <li><a href="#downloads">Downloads</a></li>
+          <li><a href="#clients">Clients</a></li>
+          <li><a href="#security">Security</a></li>
+          <li><a href="https://github.com/weydson/mcp-browser" target="_blank" rel="noopener">GitHub</a></li>
+          <li>
+            <button id="theme-toggle" class="theme-toggle-btn" type="button" aria-label="Switch Theme">
+              🌙
+            </button>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <!-- Hero -->
+    <section class="hero-section" aria-labelledby="hero-title">
+      <h1 id="hero-title" class="hero-title">
+        Browse, test, and manage every <span class="hero-highlight">MCP server</span> in one place.
+      </h1>
+      <p class="hero-subtitle">
+        A private local web interface that discovers servers from Claude Code, Cursor, VS Code, Windsurf, Zed, and Gemini CLI. Safely execute tools via generated forms and update configs atomically with automatic backups.
+      </p>
+
+      <div class="hero-actions">
+        <a href="#install" class="contrast" role="button">Install with uv</a>
+        <a href="#downloads" class="outline" role="button">Prebuilt Binaries</a>
+        <a href="https://github.com/weydson/mcp-browser" class="outline" role="button" target="_blank" rel="noopener">Source Code</a>
+      </div>
+
+      <!-- Terminal Install Snippet Box -->
+      <div class="terminal-box" aria-label="Installation Command Line">
+        <div class="terminal-header">
+          <div class="terminal-dots" aria-hidden="true">
+            <span class="terminal-dot dot-red"></span>
+            <span class="terminal-dot dot-yellow"></span>
+            <span class="terminal-dot dot-green"></span>
+          </div>
+          <div class="terminal-tabs" role="tablist" aria-label="Package Manager Options">
+            <button class="terminal-tab active" role="tab" aria-selected="true" data-target="uv">uv (Recommended)</button>
+            <button class="terminal-tab" role="tab" aria-selected="false" data-target="pip">pip</button>
+            <button class="terminal-tab" role="tab" aria-selected="false" data-target="source">Source</button>
+          </div>
+        </div>
+        <div class="terminal-body">
+          <code class="terminal-code">
+            <span class="terminal-prompt">$</span><span id="terminal-command">uv tool install mcp-browser &amp;&amp; mcp-browser</span>
+          </code>
+          <button id="terminal-copy" class="copy-btn" type="button" aria-label="Copy command to clipboard" data-copy-text="uv tool install mcp-browser &amp;&amp; mcp-browser">
+            📋 Copy
+          </button>
+        </div>
+      </div>
+
+      <!-- Hero Preview Screenshot -->
+      <figure id="hero-preview" class="hero-preview" tabindex="0" role="button" aria-label="Click to enlarge hero screenshot">
+        <img id="hero-img" src="images/screenshots/server-list.png" alt="MCP Browser Dashboard showing discovered servers, transport status, and client integrations">
+      </figure>
+    </section>
+
+    <!-- Key Highlights -->
+    <section id="features" aria-labelledby="features-title">
+      <h2 id="features-title">Key Capabilities</h2>
+      <div class="features-grid">
+        <article class="feature-card">
+          <span class="feature-icon" aria-hidden="true">🔍</span>
+          <h3>Universal Discovery</h3>
+          <p>
+            Scans and consolidates MCP server configurations across 10+ AI tools and current repository checkouts into a single cohesive overview.
+          </p>
+        </article>
+        <article class="feature-card">
+          <span class="feature-icon" aria-hidden="true">⚡</span>
+          <h3>Interactive Playground</h3>
+          <p>
+            Connects to stdio and SSE servers, inspects capabilities, builds schema-validated HTML input forms, and tests tools directly in the browser.
+          </p>
+        </article>
+        <article class="feature-card">
+          <span class="feature-icon" aria-hidden="true">🛡️</span>
+          <h3>Atomic Writes &amp; Backups</h3>
+          <p>
+            Updates real editor JSON/TOML files safely. Automatically creates timestamped backups (retaining the 20 most recent revisions) before touching files.
+          </p>
+        </article>
+        <article class="feature-card">
+          <span class="feature-icon" aria-hidden="true">🔒</span>
+          <h3>Strict Local Security</h3>
+          <p>
+            Binds exclusively to loopback (<code>127.0.0.1</code>), protects tokens in URL hash fragments, defends against DNS rebinding, and blocks telemetry.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <!-- Screenshots Gallery -->
+    <section id="gallery" aria-labelledby="gallery-title">
+      <div class="gallery-controls">
+        <h2 id="gallery-title">Screenshot Showcase</h2>
+        <small>Click any screenshot to open the high-resolution lightbox gallery</small>
+      </div>
+
+      <div class="gallery-grid">
+        <article class="gallery-card" data-index="0" tabindex="0" role="button" aria-label="Enlarge Discovered Servers Light Mode">
+          <div class="gallery-thumb-wrapper">
+            <img src="images/screenshots/server-list.png" alt="Discovered Servers overview in Light Mode" loading="lazy">
+          </div>
+          <div class="gallery-card-body">
+            <h3 class="gallery-card-title">Server Discovery (Light)</h3>
+            <p class="gallery-card-desc">Overview of all discovered MCP servers, transport types, and health states.</p>
+          </div>
+        </article>
+
+        <article class="gallery-card" data-index="1" tabindex="0" role="button" aria-label="Enlarge Discovered Servers Dark Mode">
+          <div class="gallery-thumb-wrapper">
+            <img src="images/screenshots/server-list-dark.png" alt="Discovered Servers overview in Dark Mode" loading="lazy">
+          </div>
+          <div class="gallery-card-body">
+            <h3 class="gallery-card-title">Server Discovery (Dark)</h3>
+            <p class="gallery-card-desc">Sleek dark theme dashboard with real-time status and filter chips.</p>
+          </div>
+        </article>
+
+        <article class="gallery-card" data-index="2" tabindex="0" role="button" aria-label="Enlarge Server Detail and Tool Execution Light Mode">
+          <div class="gallery-thumb-wrapper">
+            <img src="images/screenshots/server-detail.png" alt="Server detail view with interactive tool form in Light Mode" loading="lazy">
+          </div>
+          <div class="gallery-card-body">
+            <h3 class="gallery-card-title">Tool Execution (Light)</h3>
+            <p class="gallery-card-desc">Interactive JSON Schema generated form executing tools in real time.</p>
+          </div>
+        </article>
+
+        <article class="gallery-card" data-index="3" tabindex="0" role="button" aria-label="Enlarge Server Detail and Tool Execution Dark Mode">
+          <div class="gallery-thumb-wrapper">
+            <img src="images/screenshots/server-detail-dark.png" alt="Server detail view with interactive tool form in Dark Mode" loading="lazy">
+          </div>
+          <div class="gallery-card-body">
+            <h3 class="gallery-card-title">Tool Execution (Dark)</h3>
+            <p class="gallery-card-desc">Dark theme tool tester displaying formatted execution responses.</p>
+          </div>
+        </article>
+
+        <article class="gallery-card" data-index="4" tabindex="0" role="button" aria-label="Enlarge Multi-Client Server Configuration">
+          <div class="gallery-thumb-wrapper">
+            <img src="images/screenshots/add-server.png" alt="Add server dialog writing to multiple AI clients simultaneously" loading="lazy">
+          </div>
+          <div class="gallery-card-body">
+            <h3 class="gallery-card-title">Multi-Client Provisioning</h3>
+            <p class="gallery-card-desc">Add or edit servers across multiple clients simultaneously with atomic safety.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Terminal Installation -->
+    <section id="install" aria-labelledby="install-title">
+      <h2 id="install-title">Installation &amp; Setup</h2>
+      <p>Python 3.11+ is required for <code>uv</code> and <code>pip</code>. Prebuilt binaries need no Python runtime.</p>
+
+      <div class="grid">
+        <div>
+          <h3>Using Astral uv (Recommended)</h3>
+          <p>Isolates the CLI into an independent tool environment:</p>
+          <pre><code>uv tool install mcp-browser &amp;&amp; mcp-browser</code></pre>
+          <button class="copy-btn outline" data-copy-text="uv tool install mcp-browser &amp;&amp; mcp-browser" type="button">📋 Copy uv command</button>
+        </div>
+        <div>
+          <h3>Using Standard pip</h3>
+          <p>Installs directly into your current Python environment:</p>
+          <pre><code>pip install mcp-browser &amp;&amp; mcp-browser</code></pre>
+          <button class="copy-btn outline" data-copy-text="pip install mcp-browser &amp;&amp; mcp-browser" type="button">📋 Copy pip command</button>
+        </div>
+      </div>
+
+      <details>
+        <summary>Install directly from GitHub or Source</summary>
+        <p>Run without PyPI using <code>uv tool</code>:</p>
+        <pre><code>uv tool install "git+https://github.com/weydson/mcp-browser#subdirectory=packages/cli"</code></pre>
+        <p>Or clone the repository to run from source:</p>
+        <pre><code>git clone https://github.com/weydson/mcp-browser &amp;&amp; cd mcp-browser &amp;&amp; uv sync --all-packages &amp;&amp; uv run mcp-browser</code></pre>
+        <button class="copy-btn outline" data-copy-text="git clone https://github.com/weydson/mcp-browser &amp;&amp; cd mcp-browser &amp;&amp; uv sync --all-packages &amp;&amp; uv run mcp-browser" type="button">📋 Copy source command</button>
+      </details>
+    </section>
+
+    <!-- Standalone Downloads -->
+    <section id="downloads" aria-labelledby="downloads-title">
+      <h2 id="downloads-title">Standalone Prebuilt Binaries (v0.1.0)</h2>
+      <p>
+        Fully self-contained executables packaged with PyInstaller. Zero runtime dependencies or Python installation required.
+      </p>
+
+      <div class="downloads-grid">
+        <article class="download-card">
+          <div>
+            <div class="download-card-header">
+              <span class="os-badge">macOS arm64</span>
+              <small>v0.1.0</small>
+            </div>
+            <h3 class="download-title">Apple Silicon</h3>
+            <p class="download-desc">For Macs with M1, M2, M3, M4 processors (macOS 12+).</p>
+          </div>
+          <a href="https://github.com/weydson/mcp-browser/releases/latest/download/mcp-browser-0.1.0-macos-arm64.zip" class="contrast download-btn" role="button">
+            ⬇️ Download ZIP
+          </a>
+        </article>
+
+        <article class="download-card">
+          <div>
+            <div class="download-card-header">
+              <span class="os-badge">macOS x86_64</span>
+              <small>v0.1.0</small>
+            </div>
+            <h3 class="download-title">macOS Intel</h3>
+            <p class="download-desc">For Macs with 64-bit Intel processors (macOS 12+).</p>
+          </div>
+          <a href="https://github.com/weydson/mcp-browser/releases/latest/download/mcp-browser-0.1.0-macos-x86_64.zip" class="contrast download-btn" role="button">
+            ⬇️ Download ZIP
+          </a>
+        </article>
+
+        <article class="download-card">
+          <div>
+            <div class="download-card-header">
+              <span class="os-badge">Windows x86_64</span>
+              <small>v0.1.0</small>
+            </div>
+            <h3 class="download-title">Windows 64-bit</h3>
+            <p class="download-desc">For Windows 10 and 11 64-bit editions.</p>
+          </div>
+          <a href="https://github.com/weydson/mcp-browser/releases/latest/download/mcp-browser-0.1.0-windows-x86_64.zip" class="contrast download-btn" role="button">
+            ⬇️ Download ZIP
+          </a>
+        </article>
+
+        <article class="download-card">
+          <div>
+            <div class="download-card-header">
+              <span class="os-badge">Linux x86_64</span>
+              <small>v0.1.0</small>
+            </div>
+            <h3 class="download-title">Linux 64-bit</h3>
+            <p class="download-desc">Compatible with standard glibc 2.31+ distributions.</p>
+          </div>
+          <a href="https://github.com/weydson/mcp-browser/releases/latest/download/mcp-browser-0.1.0-linux-x86_64.zip" class="contrast download-btn" role="button">
+            ⬇️ Download ZIP
+          </a>
+        </article>
+      </div>
+
+      <div class="grid">
+        <div>
+          <h3>Integrity &amp; Checksums</h3>
+          <p>
+            Verify archive integrity with <a href="https://github.com/weydson/mcp-browser/releases/latest/download/SHA256SUMS.txt">SHA256SUMS.txt</a>:
+          </p>
+          <pre><code>shasum -a 256 -c SHA256SUMS.txt --ignore-missing</code></pre>
+          <small>View all historical tags and assets on the <a href="https://github.com/weydson/mcp-browser/releases" target="_blank" rel="noopener">GitHub Releases</a> page.</small>
+        </div>
+        <div>
+          <h3>Gatekeeper &amp; SmartScreen Notes</h3>
+          <p>Prebuilt binaries are not Apple-signed or Microsoft-notarized:</p>
+          <ul>
+            <li><strong>macOS:</strong> Run <code>xattr -dr com.apple.quarantine mcp-browser</code> after unzipping.</li>
+            <li><strong>Windows:</strong> Run <code>Unblock-File -Path .\mcp-browser\mcp-browser.exe</code> in PowerShell.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Supported Clients -->
+    <section id="clients" aria-labelledby="clients-title">
+      <h2 id="clients-title">Supported AI Coding Clients</h2>
+      <p>
+        MCP Browser automatically resolves user-level and project-level configuration files across your operating system:
+      </p>
+
+      <div class="overflow-auto">
+        <table role="grid">
+          <thead>
+            <tr>
+              <th scope="col">Client</th>
+              <th scope="col">User Configuration Path</th>
+              <th scope="col">Project Configuration</th>
+              <th scope="col">Transports</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">Claude Code</th>
+              <td><code>~/.claude.json</code></td>
+              <td><code>.mcp.json</code></td>
+              <td><span class="transport-badge badge-stdio">stdio</span><span class="transport-badge badge-sse">SSE</span></td>
+            </tr>
+            <tr>
+              <th scope="row">Claude Desktop</th>
+              <td><code>claude_desktop_config.json</code></td>
+              <td>—</td>
+              <td><span class="transport-badge badge-stdio">stdio</span></td>
+            </tr>
+            <tr>
+              <th scope="row">Cursor</th>
+              <td><code>~/.cursor/mcp.json</code></td>
+              <td><code>.cursor/mcp.json</code></td>
+              <td><span class="transport-badge badge-stdio">stdio</span><span class="transport-badge badge-sse">SSE</span></td>
+            </tr>
+            <tr>
+              <th scope="row">VS Code</th>
+              <td><code>Code/User/mcp.json</code></td>
+              <td><code>.vscode/mcp.json</code></td>
+              <td><span class="transport-badge badge-stdio">stdio</span><span class="transport-badge badge-sse">SSE</span></td>
+            </tr>
+            <tr>
+              <th scope="row">Windsurf</th>
+              <td><code>~/.codeium/windsurf/mcp_config.json</code></td>
+              <td>—</td>
+              <td><span class="transport-badge badge-stdio">stdio</span><span class="transport-badge badge-sse">SSE</span></td>
+            </tr>
+            <tr>
+              <th scope="row">Zed</th>
+              <td><code>~/.config/zed/settings.json</code></td>
+              <td><code>.zed/settings.json</code></td>
+              <td><span class="transport-badge badge-stdio">stdio</span><span class="transport-badge badge-sse">SSE</span></td>
+            </tr>
+            <tr>
+              <th scope="row">Codex</th>
+              <td><code>~/.codex/config.toml</code></td>
+              <td><code>.codex/config.toml</code></td>
+              <td><span class="transport-badge badge-stdio">stdio</span></td>
+            </tr>
+            <tr>
+              <th scope="row">Gemini CLI</th>
+              <td><code>~/.gemini/settings.json</code></td>
+              <td><code>.gemini/settings.json</code></td>
+              <td><span class="transport-badge badge-stdio">stdio</span><span class="transport-badge badge-sse">SSE</span></td>
+            </tr>
+            <tr>
+              <th scope="row">Antigravity</th>
+              <td><code>mcp_config.json</code></td>
+              <td>—</td>
+              <td><span class="transport-badge badge-stdio">stdio</span><span class="transport-badge badge-sse">SSE</span></td>
+            </tr>
+            <tr>
+              <th scope="row">Cline</th>
+              <td><code>cline_mcp_settings.json</code></td>
+              <td>—</td>
+              <td><span class="transport-badge badge-stdio">stdio</span><span class="transport-badge badge-sse">SSE</span></td>
+            </tr>
+            <tr>
+              <th scope="row">Plugins &amp; Extensions</th>
+              <td>Claude Code Plugins &amp; Desktop Extensions</td>
+              <td>—</td>
+              <td><span class="transport-badge badge-readonly">read-only</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Security & Safety Architecture -->
+    <section id="security" aria-labelledby="security-title">
+      <h2 id="security-title">Security &amp; Safety Architecture</h2>
+      <p>
+        Because MCP servers execute terminal commands with your local user privileges, MCP Browser enforces defense-in-depth:
+      </p>
+
+      <div class="security-grid">
+        <article class="security-card">
+          <h3>Loopback Binding Only</h3>
+          <p>
+            The server binds strictly to <code>127.0.0.1</code>. Incoming requests are rejected if their <code>Host</code> or <code>Origin</code> header is not recognized, defending against DNS rebinding and cross-site attacks.
+          </p>
+        </article>
+
+        <article class="security-card">
+          <h3>URL Fragment Authentication</h3>
+          <p>
+            The random bearer token is passed via <code>#token=...</code>. Because browsers never transmit URL fragments over HTTP, the token never appears in server access logs or external referrer headers.
+          </p>
+        </article>
+
+        <article class="security-card">
+          <h3>Untrusted Repo Guard</h3>
+          <p>
+            Project-level configurations checked out from git can contain malicious commands. MCP Browser blocks execution on project servers until you explicitly inspect the command and confirm consent.
+          </p>
+        </article>
+
+        <article class="security-card">
+          <h3>Secret Masking &amp; Backups</h3>
+          <p>
+            Environment keys and authorization tokens are masked (<code>•••</code>) in the UI. Before modifying any configuration file, a timestamped copy is saved to <code>backups/</code> (last 20 kept).
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <!-- CLI Reference -->
+    <section id="cli" aria-labelledby="cli-title">
+      <h2 id="cli-title">CLI Command Reference</h2>
+      <div class="overflow-auto">
+        <table role="grid">
+          <thead>
+            <tr>
+              <th scope="col">Command</th>
+              <th scope="col">Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>mcp-browser</code> or <code>mcp-browser serve</code></td>
+              <td>Runs foreground server, displays URL with token, and opens default browser.</td>
+            </tr>
+            <tr>
+              <td><code>mcp-browser start</code></td>
+              <td>Spawns server in background daemon mode (logs to <code>server.log</code> in state folder).</td>
+            </tr>
+            <tr>
+              <td><code>mcp-browser stop</code></td>
+              <td>Gracefully terminates the background server process after PID verification.</td>
+            </tr>
+            <tr>
+              <td><code>mcp-browser status</code></td>
+              <td>Reports running/stopped state (exit code 0 if running, 1 if stopped).</td>
+            </tr>
+            <tr>
+              <td><code>mcp-browser open</code></td>
+              <td>Opens the web browser to the URL of the active running server instance.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p><small>Available flags: <code>--port &lt;PORT&gt;</code> (default 8765) and <code>--no-open</code> (suppresses automatic browser launch).</small></p>
+    </section>
+
+  </main>
+
+  <!-- Lightbox Modal -->
+  <aside id="lightbox-modal" class="lightbox-modal" role="dialog" aria-modal="true" aria-hidden="true" aria-label="Screenshot lightbox modal">
+    <div class="lightbox-content">
+      <button id="lightbox-close" class="lightbox-close-btn" type="button" aria-label="Close modal lightbox">✕</button>
+      <div class="lightbox-image-wrapper">
+        <img id="lightbox-img" src="images/screenshots/server-list.png" alt="Enlarged screenshot">
+      </div>
+      <button id="lightbox-prev" class="lightbox-nav-btn lightbox-prev" type="button" aria-label="Previous screenshot">‹</button>
+      <button id="lightbox-next" class="lightbox-nav-btn lightbox-next" type="button" aria-label="Next screenshot">›</button>
+      <div class="lightbox-caption-bar">
+        <span id="lightbox-caption">Server Discovery Overview</span>
+        <span id="lightbox-counter">1 of 5</span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Footer -->
+  <footer class="container">
+    <hr>
+    <div class="grid">
+      <div>
+        <p>
+          <strong>MCP Browser</strong> — Open-source developer tool created by Weydson.
+          <br>
+          Released under the <a href="https://github.com/weydson/mcp-browser/blob/main/LICENSE" target="_blank" rel="noopener">MIT License</a>.
+        </p>
+      </div>
+      <div>
+        <nav aria-label="Footer Resources">
+          <ul>
+            <li><a href="https://github.com/weydson/mcp-browser" target="_blank" rel="noopener">GitHub</a></li>
+            <li><a href="https://pypi.org/project/mcp-browser/" target="_blank" rel="noopener">PyPI</a></li>
+            <li><a href="/llms.txt">llms.txt</a></li>
+            <li><a href="/llms-full.txt">llms-full.txt</a></li>
+            <li><a href="/index.md">index.md</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/main.js"></script>
+
+  <!-- Embedded LLM-Friendly Markdown -->
+  <script type="text/markdown">
+# MCP Browser
+
+A local web page that lists, searches, and runs every Model Context Protocol (MCP) server configured on your machine, and adds, edits, and deletes them by safely rewriting the real config files of your AI coding assistants.
+
+- **Canonical URL**: https://mcpbrowser.weydson.com/
+- **GitHub**: https://github.com/weydson/mcp-browser
+- **PyPI**: https://pypi.org/project/mcp-browser/
+- **Author**: Weydson
+- **License**: MIT
+
+## Quick Installation
+- `uv tool install mcp-browser && mcp-browser`
+- `pip install mcp-browser && mcp-browser`
+- `git clone https://github.com/weydson/mcp-browser && cd mcp-browser && uv sync --all-packages && uv run mcp-browser`
+
+## Prebuilt Binaries (v0.1.0)
+- macOS Apple Silicon (arm64): https://github.com/weydson/mcp-browser/releases/latest/download/mcp-browser-0.1.0-macos-arm64.zip
+- macOS Intel (x86_64): https://github.com/weydson/mcp-browser/releases/latest/download/mcp-browser-0.1.0-macos-x86_64.zip
+- Windows (x86_64): https://github.com/weydson/mcp-browser/releases/latest/download/mcp-browser-0.1.0-windows-x86_64.zip
+- Linux (x86_64): https://github.com/weydson/mcp-browser/releases/latest/download/mcp-browser-0.1.0-linux-x86_64.zip
+- Checksums: https://github.com/weydson/mcp-browser/releases/latest/download/SHA256SUMS.txt
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,658 @@
+/* ==========================================================================
+   MCP Browser — Custom Styling
+   Complements vendored Pico CSS v2 with developer-focused aesthetics.
+   ========================================================================== */
+
+:root {
+  --brand-primary: #2563eb;
+  --brand-primary-hover: #1d4ed8;
+  --brand-accent: #38bdf8;
+  --terminal-bg: #0b0f19;
+  --terminal-border: #1e293b;
+  --terminal-text: #e2e8f0;
+  --card-radius: 0.625rem;
+  --transition-smooth: 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Visually hidden for screen reader accessibility */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* Responsive table overflow wrapper */
+.overflow-auto {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+[data-theme="dark"] {
+  --brand-primary: #3b82f6;
+  --brand-primary-hover: #60a5fa;
+  --terminal-bg: #030712;
+  --terminal-border: #1f2937;
+}
+
+/* --------------------------------------------------------------------------
+   Header & Navigation
+   -------------------------------------------------------------------------- */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  background-color: var(--pico-background-color);
+  border-bottom: 1px solid var(--pico-muted-border-color);
+  padding: 0.5rem 0;
+  overflow-x: clip;
+}
+
+.brand-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 1.15rem;
+  color: var(--pico-color);
+}
+
+.brand-icon,
+.brand-logo {
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  object-fit: cover;
+}
+
+.version-badge {
+  font-size: 0.725rem;
+  font-weight: 600;
+  font-family: var(--pico-font-family-monospace);
+  padding: 0.15rem 0.45rem;
+  border-radius: 9999px;
+  background-color: var(--pico-card-background-color);
+  border: 1px solid var(--pico-muted-border-color);
+  color: var(--pico-muted-color);
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.theme-toggle-btn {
+  background: transparent;
+  border: 1px solid var(--pico-muted-border-color);
+  color: var(--pico-color);
+  padding: 0.35rem 0.65rem;
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1;
+  border-radius: var(--pico-border-radius);
+  cursor: pointer;
+  transition: background-color var(--transition-smooth), border-color var(--transition-smooth);
+}
+
+.theme-toggle-btn:hover {
+  background-color: var(--pico-card-background-color);
+  border-color: var(--brand-primary);
+}
+
+/* --------------------------------------------------------------------------
+   Hero Section & Animations
+   -------------------------------------------------------------------------- */
+.hero-section {
+  padding: 3.5rem 0 2rem;
+  text-align: center;
+  animation: heroFadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes heroFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hero-title {
+  font-size: clamp(2rem, 5vw, 3.25rem);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+  margin-bottom: 1rem;
+}
+
+.hero-highlight {
+  background: linear-gradient(135deg, #2563eb 0%, #06b6d4 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero-subtitle {
+  font-size: clamp(1.05rem, 2vw, 1.25rem);
+  color: var(--pico-muted-color);
+  max-width: 760px;
+  margin: 0 auto 2rem;
+  line-height: 1.6;
+}
+
+.hero-actions {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 2.5rem;
+}
+
+.hero-actions a {
+  margin: 0;
+}
+
+/* --------------------------------------------------------------------------
+   Terminal Install Snippet Box
+   -------------------------------------------------------------------------- */
+.terminal-box {
+  background: var(--terminal-bg);
+  border: 1px solid var(--terminal-border);
+  border-radius: var(--card-radius);
+  color: var(--terminal-text);
+  max-width: 680px;
+  margin: 0 auto 2.5rem;
+  overflow: hidden;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.25), 0 8px 10px -6px rgba(0, 0, 0, 0.2);
+  text-align: left;
+}
+
+.terminal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 0.75rem;
+  background-color: rgba(255, 255, 255, 0.03);
+  border-bottom: 1px solid var(--terminal-border);
+}
+
+.terminal-dots {
+  display: flex;
+  gap: 6px;
+}
+
+.terminal-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.dot-red { background: #ef4444; }
+.dot-yellow { background: #eab308; }
+.dot-green { background: #22c55e; }
+
+.terminal-tabs {
+  display: flex;
+  gap: 4px;
+}
+
+.terminal-tab {
+  background: transparent;
+  border: none;
+  color: #94a3b8;
+  font-family: var(--pico-font-family-monospace);
+  font-size: 0.775rem;
+  padding: 0.25rem 0.6rem;
+  margin: 0;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: color var(--transition-smooth), background-color var(--transition-smooth);
+}
+
+.terminal-tab:hover {
+  color: #f1f5f9;
+  background-color: rgba(255, 255, 255, 0.06);
+}
+
+.terminal-tab.active {
+  color: #38bdf8;
+  background-color: rgba(56, 189, 248, 0.12);
+  font-weight: 600;
+}
+
+.terminal-body {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.85rem 1rem;
+}
+
+.terminal-code {
+  font-family: var(--pico-font-family-monospace);
+  font-size: 0.875rem;
+  color: #f8fafc;
+  margin: 0;
+  min-width: 0;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+.terminal-prompt {
+  color: #38bdf8;
+  user-select: none;
+  margin-right: 0.5rem;
+}
+
+.copy-btn {
+  background-color: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #e2e8f0;
+  padding: 0.35rem 0.65rem;
+  margin: 0;
+  font-size: 0.775rem;
+  border-radius: 4px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  flex-shrink: 0;
+  transition: all var(--transition-smooth);
+}
+
+.copy-btn:hover {
+  background-color: rgba(255, 255, 255, 0.16);
+  border-color: rgba(255, 255, 255, 0.3);
+  color: #ffffff;
+}
+
+.copy-btn.copied {
+  background-color: #059669;
+  border-color: #10b981;
+  color: #ffffff;
+  animation: copyPop 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes copyPop {
+  0% { transform: scale(0.92); }
+  50% { transform: scale(1.08); }
+  100% { transform: scale(1); }
+}
+
+/* --------------------------------------------------------------------------
+   Hero Screenshot Card
+   -------------------------------------------------------------------------- */
+.hero-preview {
+  max-width: 960px;
+  margin: 0 auto;
+  border-radius: var(--card-radius);
+  overflow: hidden;
+  border: 1px solid var(--pico-muted-border-color);
+  box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  transition: transform var(--transition-smooth), box-shadow var(--transition-smooth), border-color var(--transition-smooth);
+}
+
+.hero-preview:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 25px 45px -10px rgba(37, 99, 235, 0.15);
+  border-color: var(--brand-primary);
+}
+
+.hero-preview img {
+  width: 100%;
+  height: auto;
+  display: block;
+  transition: opacity 0.3s ease;
+}
+
+/* --------------------------------------------------------------------------
+   Feature Cards Grid
+   -------------------------------------------------------------------------- */
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.5rem;
+  margin: 2rem 0;
+}
+
+.feature-card {
+  padding: 1.5rem;
+  border-radius: var(--card-radius);
+  border: 1px solid var(--pico-muted-border-color);
+  background-color: var(--pico-card-background-color);
+  transition: transform var(--transition-smooth), box-shadow var(--transition-smooth);
+}
+
+.feature-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 24px -6px rgba(0, 0, 0, 0.08);
+}
+
+.feature-icon {
+  font-size: 1.75rem;
+  margin-bottom: 0.75rem;
+  display: inline-block;
+}
+
+/* --------------------------------------------------------------------------
+   Screenshots Gallery & Lightbox
+   -------------------------------------------------------------------------- */
+.gallery-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.gallery-card {
+  background-color: var(--pico-card-background-color);
+  border: 1px solid var(--pico-muted-border-color);
+  border-radius: var(--card-radius);
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform var(--transition-smooth), box-shadow var(--transition-smooth), border-color var(--transition-smooth);
+}
+
+.gallery-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 28px -6px rgba(0, 0, 0, 0.12);
+  border-color: var(--brand-primary);
+}
+
+.gallery-thumb-wrapper {
+  overflow: hidden;
+  aspect-ratio: 16 / 10;
+  background-color: var(--terminal-bg);
+}
+
+.gallery-thumb-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+.gallery-card:hover .gallery-thumb-wrapper img {
+  transform: scale(1.03);
+}
+
+.gallery-card-body {
+  padding: 1rem;
+}
+
+.gallery-card-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin: 0 0 0.35rem;
+}
+
+.gallery-card-desc {
+  font-size: 0.8rem;
+  color: var(--pico-muted-color);
+  margin: 0;
+}
+
+/* Lightbox Modal */
+.lightbox-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background-color: rgba(0, 0, 0, 0.88);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+}
+
+.lightbox-modal.active {
+  display: flex;
+  animation: heroFadeIn 0.25s ease both;
+}
+
+.lightbox-content {
+  position: relative;
+  max-width: 1200px;
+  width: 100%;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.lightbox-image-wrapper {
+  max-width: 100%;
+  max-height: calc(90vh - 80px);
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.lightbox-image-wrapper img {
+  max-width: 100%;
+  max-height: calc(90vh - 80px);
+  object-fit: contain;
+  border-radius: 6px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+}
+
+.lightbox-caption-bar {
+  margin-top: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  color: #f1f5f9;
+  font-size: 0.9rem;
+}
+
+.lightbox-nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(15, 23, 42, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
+  transition: background-color var(--transition-smooth), transform var(--transition-smooth);
+}
+
+.lightbox-nav-btn:hover {
+  background: rgba(37, 99, 235, 0.9);
+  transform: translateY(-50%) scale(1.08);
+}
+
+.lightbox-prev { left: -22px; }
+.lightbox-next { right: -22px; }
+
+.lightbox-close-btn {
+  position: absolute;
+  top: -40px;
+  right: 0;
+  background: transparent;
+  border: none;
+  color: #ffffff;
+  font-size: 1.75rem;
+  cursor: pointer;
+  padding: 0.25rem 0.5rem;
+  margin: 0;
+  line-height: 1;
+}
+
+/* --------------------------------------------------------------------------
+   Downloads Grid & Binary Cards
+   -------------------------------------------------------------------------- */
+.downloads-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.25rem;
+  margin: 2rem 0;
+}
+
+.download-card {
+  padding: 1.25rem;
+  border-radius: var(--card-radius);
+  border: 1px solid var(--pico-muted-border-color);
+  background-color: var(--pico-card-background-color);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform var(--transition-smooth), box-shadow var(--transition-smooth), border-color var(--transition-smooth);
+}
+
+.download-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.1);
+  border-color: var(--brand-primary);
+}
+
+.download-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+}
+
+.os-badge {
+  font-size: 0.725rem;
+  font-family: var(--pico-font-family-monospace);
+  padding: 0.15rem 0.45rem;
+  border-radius: 4px;
+  background: rgba(37, 99, 235, 0.12);
+  color: var(--brand-primary);
+  font-weight: 600;
+}
+
+.download-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin: 0 0 0.25rem;
+}
+
+.download-desc {
+  font-size: 0.825rem;
+  color: var(--pico-muted-color);
+  margin-bottom: 1rem;
+}
+
+.download-btn {
+  margin: 0;
+  width: 100%;
+  font-size: 0.875rem;
+  padding: 0.55rem 0.75rem;
+}
+
+/* --------------------------------------------------------------------------
+   Security Badges & Table
+   -------------------------------------------------------------------------- */
+.security-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.25rem;
+  margin: 2rem 0;
+}
+
+.security-card {
+  padding: 1.25rem;
+  border-radius: var(--card-radius);
+  border: 1px solid var(--pico-muted-border-color);
+  background-color: var(--pico-card-background-color);
+}
+
+.security-card h3 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin: 0 0 0.5rem;
+}
+
+.transport-badge {
+  font-size: 0.725rem;
+  padding: 0.1rem 0.35rem;
+  border-radius: 3px;
+  font-family: var(--pico-font-family-monospace);
+  margin-right: 0.35rem;
+}
+
+.badge-stdio { background: rgba(56, 189, 248, 0.15); color: #0284c7; }
+.badge-sse { background: rgba(34, 197, 94, 0.15); color: #16a34a; }
+.badge-readonly { background: rgba(234, 179, 8, 0.15); color: #ca8a04; }
+
+/* --------------------------------------------------------------------------
+   Responsive Media Queries
+   -------------------------------------------------------------------------- */
+@media (max-width: 768px) {
+  .site-header nav {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .nav-links {
+    overflow-x: auto;
+    max-width: 100%;
+    padding-bottom: 4px;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .lightbox-prev {
+    left: 8px;
+  }
+
+  .lightbox-next {
+    right: 8px;
+  }
+
+  .lightbox-close-btn {
+    top: -35px;
+    right: 0;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Accessibility: Reduced Motion
+   -------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
