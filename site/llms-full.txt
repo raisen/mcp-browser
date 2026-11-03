@@ -168,32 +168,3 @@ Modifying developer configuration files demands absolute precision and zero data
    `default-src 'self'; frame-ancestors 'none'; X-Content-Type-Options: nosniff; Referrer-Policy: no-referrer;`
 7. **Resource Bounds**:
    Process stderr history is capped at 4 KB; discovery scans are bounded at 100 pages / 5,000 items; tool execution payloads exceeding 10 MB are truncated with warning indicators.
-
----
-
-## 8. Operating System Verification Notes
-
-### macOS Gatekeeper
-Standalone PyInstaller binaries are not Apple-notarized. To clear the macOS quarantine attribute after downloading and extracting:
-```sh
-xattr -dr com.apple.quarantine mcp-browser
-```
-Alternatively: System Settings -> Privacy & Security -> Click "Open Anyway".
-
-### Windows SmartScreen
-To unblock downloaded zip contents via PowerShell:
-```powershell
-Unblock-File -Path .\mcp-browser\mcp-browser.exe
-```
-
-### Cryptographic Checksum Verification
-```sh
-# macOS
-shasum -a 256 -c SHA256SUMS.txt --ignore-missing
-
-# Linux
-sha256sum -c SHA256SUMS.txt --ignore-missing
-
-# Windows (PowerShell)
-(Get-FileHash .\mcp-browser-0.1.0-windows-x86_64.zip -Algorithm SHA256).Hash
-```

@@ -47,24 +47,6 @@ Prebuilt binaries require no Python installation.
 | Linux | x86_64 | — | [mcp-browser-0.1.0-linux-x86_64.zip](https://github.com/raisen/mcp-browser/releases/latest/download/mcp-browser-0.1.0-linux-x86_64.zip) |
 | All | Checksums | [SHA256SUMS.txt](https://github.com/raisen/mcp-browser/releases/latest/download/SHA256SUMS.txt) | [SHA256SUMS.txt](https://github.com/raisen/mcp-browser/releases/latest/download/SHA256SUMS.txt) |
 
-### macOS Gatekeeper Note
-
-PyInstaller binaries are not Apple-signed. Run this command after unzipping:
-
-```sh
-xattr -dr com.apple.quarantine mcp-browser
-```
-
-Or navigate to System Settings -> Privacy & Security -> Click "Open Anyway".
-
-### Windows SmartScreen Note
-
-To unblock the executable in PowerShell:
-
-```powershell
-Unblock-File -Path .\mcp-browser\mcp-browser.exe
-```
-
 ---
 
 ## Core Features

@@ -348,24 +348,14 @@
         </article>
       </div>
 
-      <div class="grid">
-        <div>
-          <h3>Integrity &amp; Checksums</h3>
-          <p>
-            Verify archive integrity with <a href="https://github.com/raisen/mcp-browser/releases/latest/download/SHA256SUMS.txt">SHA256SUMS.txt</a>:
-          </p>
-          <pre><code>shasum -a 256 -c SHA256SUMS.txt --ignore-missing</code></pre>
-          <small>View all historical tags and assets on the <a href="https://github.com/raisen/mcp-browser/releases" target="_blank" rel="noopener">GitHub Releases</a> page.</small>
-        </div>
-        <div>
-          <h3>Gatekeeper &amp; SmartScreen Notes</h3>
-          <p>Prebuilt binaries are not Apple-signed or Microsoft-notarized:</p>
-          <ul>
-            <li><strong>macOS:</strong> Run <code>xattr -dr com.apple.quarantine mcp-browser</code> after unzipping.</li>
-            <li><strong>Windows:</strong> Run <code>Unblock-File -Path .\mcp-browser\mcp-browser.exe</code> in PowerShell.</li>
-          </ul>
-        </div>
-      </div>
+      <article class="integrity-card">
+        <h3>Integrity &amp; Checksums</h3>
+        <p>
+          Verify archive integrity with <a href="https://github.com/raisen/mcp-browser/releases/latest/download/SHA256SUMS.txt">SHA256SUMS.txt</a>:
+        </p>
+        <pre><code>shasum -a 256 -c SHA256SUMS.txt --ignore-missing</code></pre>
+        <small>View all historical tags and assets on the <a href="https://github.com/raisen/mcp-browser/releases" target="_blank" rel="noopener">GitHub Releases</a> page.</small>
+      </article>
     </section>
 
     <!-- Supported Clients -->

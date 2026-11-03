@@ -680,6 +680,24 @@
   color: var(--brand-primary);
 }
 
+.integrity-card {
+  padding: 1.25rem;
+  border-radius: var(--card-radius);
+  border: 1px solid var(--pico-muted-border-color);
+  background-color: var(--pico-card-background-color);
+  margin-top: 1.5rem;
+}
+
+.integrity-card h3 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin: 0 0 0.5rem;
+}
+
+.integrity-card pre {
+  margin: 0.75rem 0;
+}
+
 /* --------------------------------------------------------------------------
    Security Badges & Table
    -------------------------------------------------------------------------- */
