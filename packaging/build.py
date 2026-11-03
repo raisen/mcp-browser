@@ -134,12 +134,25 @@ def sign_bundle(bundle: Path, exe: Path, identity: str) -> None:
     fix_framework_symlinks(bundle)
     fw = bundle / "_internal" / "Python.framework"
     if fw.is_dir():
-        subprocess.run(["codesign", "--force", "--sign", identity, str(fw)], check=False)
+        subprocess.run(["codesign", "--force", "--timestamp", "--sign", identity, str(fw)], check=False)
     for p in bundle.rglob("*"):
         if p.is_file() and not p.is_symlink() and p.suffix in (".dylib", ".so"):
-            subprocess.run(["codesign", "--force", "--sign", identity, str(p)], check=False)
+            subprocess.run(
+                ["codesign", "--force", "--timestamp", "--options", "runtime", "--sign", identity, str(p)],
+                check=False,
+            )
     subprocess.run(
-        ["codesign", "--force", "--options", "runtime", "--deep", "--sign", identity, str(exe)],
+        [
+            "codesign",
+            "--force",
+            "--timestamp",
+            "--options",
+            "runtime",
+            "--deep",
+            "--sign",
+            identity,
+            str(exe),
+        ],
         check=True,
     )
     subprocess.run(["codesign", "-vvv", "--deep", "--strict", str(exe)], check=True)

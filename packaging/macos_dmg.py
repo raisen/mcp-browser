@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import os
 import platform
 import plistlib
 import shutil
@@ -85,10 +86,36 @@ def create_info_plist(out_plist: Path, version: str) -> None:
 def sign_path(path: Path, identity: str | None) -> None:
     sign_args = ["--force", "--deep"]
     if identity:
-        sign_args += ["--options", "runtime", "--sign", identity]
+        sign_args += ["--options", "runtime", "--timestamp", "--sign", identity]
     else:
         sign_args += ["--sign", "-"]
     subprocess.run(["codesign", *sign_args, str(path)], check=True)
+
+
+def notarize_and_staple(dmg_path: Path, profile: str = "mcp-browser-notary") -> bool:
+    print(f"Submitting {dmg_path.name} to Apple Notary Service (profile: {profile})...")
+    res = subprocess.run(
+        ["xcrun", "notarytool", "submit", str(dmg_path), "--keychain-profile", profile, "--wait"],
+        capture_output=True,
+        text=True,
+    )
+    print(res.stdout)
+    if res.returncode != 0 or "Accepted" not in res.stdout:
+        print(f"Notarization submission failed:\n{res.stderr}", file=sys.stderr)
+        return False
+    print(f"Notarization accepted! Stapling ticket to {dmg_path.name}...")
+    staple_res = subprocess.run(["xcrun", "stapler", "staple", str(dmg_path)], capture_output=True, text=True)
+    print(staple_res.stdout)
+    if staple_res.returncode != 0:
+        print(f"Stapling failed:\n{staple_res.stderr}", file=sys.stderr)
+        return False
+    spctl_res = subprocess.run(
+        ["spctl", "-a", "-t", "open", "--context", "context:primary-signature", "-v", str(dmg_path)],
+        capture_output=True,
+        text=True,
+    )
+    print(f"Gatekeeper assessment: {spctl_res.stderr.strip() or spctl_res.stdout.strip()}")
+    return True
 
 
 def build_app_bundle(
@@ -139,7 +166,12 @@ def create_dmg(app_bundle: Path, out_dmg: Path, identity: str | None) -> Path:
     return out_dmg
 
 
-def build_dmg(cli_bundle: Path, out_dir: Path, identity: str | None = None) -> Path:
+def build_dmg(
+    cli_bundle: Path,
+    out_dir: Path,
+    identity: str | None = None,
+    notary_profile: str | None = None,
+) -> Path:
     if sys.platform != "darwin":
         raise RuntimeError("DMG creation is only supported on macOS.")
 
@@ -152,5 +184,9 @@ def build_dmg(cli_bundle: Path, out_dir: Path, identity: str | None = None) -> P
     with tempfile.TemporaryDirectory(prefix="mcp-browser-app-") as tmp:
         app_dir = build_app_bundle(cli_bundle, Path(tmp), __version__, arch, identity)
         create_dmg(app_dir, out_dmg, identity)
+
+    profile = notary_profile or os.environ.get("NOTARY_PROFILE", "mcp-browser-notary")
+    if identity and identity.startswith("Developer ID Application:") and profile:
+        notarize_and_staple(out_dmg, profile)
 
     return out_dmg
