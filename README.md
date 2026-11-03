@@ -1,7 +1,12 @@
-# mcp-browser
+# MCP Browser
 
-A local web page that lists, searches and runs every MCP server configured on your machine, and adds, edits
-and deletes them by safely rewriting the real config files of your coding assistants.
+[![Website](https://img.shields.io/badge/website-mcpbrowser.weydson.com-blue?style=flat-square)](https://mcpbrowser.weydson.com)
+[![GitHub Release](https://img.shields.io/github/v/release/raisen/mcp-browser?style=flat-square)](https://github.com/raisen/mcp-browser/releases)
+[![CI](https://img.shields.io/github/actions/workflow/status/raisen/mcp-browser/ci.yml?branch=main&label=CI&style=flat-square)](https://github.com/raisen/mcp-browser/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/license-MIT-green.svg?style=flat-square)](https://github.com/raisen/mcp-browser/blob/main/LICENSE)
+[![Python 3.11+](https://img.shields.io/badge/python-3.11+-3776AB.svg?style=flat-square&logo=python&logoColor=white)](https://www.python.org/)
+
+A local web dashboard and native macOS app to browse, search, test, and safely configure Model Context Protocol (MCP) servers across all your AI coding assistants (Claude Code, Claude Desktop, Cursor, VS Code, Windsurf, Zed, Cline, Codex, Gemini CLI, Antigravity).
 
 ![MCP Browser](docs/screenshots/server-list.png)
 
