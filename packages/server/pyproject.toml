@@ -1,12 +1,12 @@
 [project]
 name = "mcp-browser-server"
-version = "0.1.0"
+version = "0.2.0"
 description = "Local web server and UI for mcp-browser"
 readme = "README.md"
 license = "MIT"
 requires-python = ">=3.11"
 dependencies = [
-    "mcp-browser-core==0.1.0",
+    "mcp-browser-core==0.2.0",
     "starlette",
     "uvicorn",
     "jsonschema",

@@ -396,7 +396,7 @@ wheels = [
 
 [[package]]
 name = "mcp-browser"
-version = "0.1.0"
+version = "0.2.0"
 source = { editable = "packages/cli" }
 dependencies = [
     { name = "mcp-browser-core" },
@@ -413,7 +413,7 @@ requires-dist = [
 
 [[package]]
 name = "mcp-browser-core"
-version = "0.1.0"
+version = "0.2.0"
 source = { editable = "packages/core" }
 dependencies = [
     { name = "anyio" },
@@ -438,7 +438,7 @@ requires-dist = [
 
 [[package]]
 name = "mcp-browser-server"
-version = "0.1.0"
+version = "0.2.0"
 source = { editable = "packages/server" }
 dependencies = [
     { name = "jsonschema" },

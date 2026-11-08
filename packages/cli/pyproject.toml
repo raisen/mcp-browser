@@ -1,13 +1,13 @@
 [project]
 name = "mcp-browser"
-version = "0.1.0"
+version = "0.2.0"
 description = "Browse, search, run and edit every MCP server configured on this machine"
 readme = "README.md"
 license = "MIT"
 requires-python = ">=3.11"
 dependencies = [
-    "mcp-browser-core==0.1.0",
-    "mcp-browser-server==0.1.0",
+    "mcp-browser-core==0.2.0",
+    "mcp-browser-server==0.2.0",
     "textual>=1.0.0",
 ]
 
