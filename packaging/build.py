@@ -28,7 +28,7 @@ NAME = "mcp-browser"
 # Packages PyInstaller cannot see through static analysis (dynamic imports, data files).
 COLLECT_SUBMODULES = ("uvicorn", "anyio", "mcp_browser", "mcp_browser_server")
 COLLECT_DATA = ("mcp_browser_server", "jsonschema", "jsonschema_specifications", "mcp", "mcp_types")
-COLLECT_ALL = ("pydantic_core", "mcp_browser_core", "httpx2")
+COLLECT_ALL = ("pydantic_core", "mcp_browser_core", "httpx2", "textual")
 HIDDEN_IMPORTS = ("filelock", "json5", "tomlkit")
 
 

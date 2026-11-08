@@ -21,6 +21,7 @@ dev = [
     "mcp-browser-core",
     "mcp-browser-server",
     "mcp-browser",
+    "textual>=1.0.0",
     "ruff",
     "pyright",
     "pytest",

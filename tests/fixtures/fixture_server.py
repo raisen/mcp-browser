@@ -4,11 +4,14 @@ Set FIXTURE_PID_FILE to have it write its pid on startup (orphan checks)."""
 
 from __future__ import annotations
 
+import logging
 import os
 import sys
 
 import anyio
 from mcp.server.mcpserver import MCPServer
+
+logging.basicConfig(level=logging.INFO, format="%(message)s", handlers=[logging.StreamHandler(sys.stderr)])
 
 server = MCPServer("fixture")
 

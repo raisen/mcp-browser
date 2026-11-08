@@ -16,7 +16,7 @@ from mcp_browser_core.paths import Paths, default_paths
 from . import daemon, launcher, runtime
 from .runtime import DEFAULT_PORT, PidInfo
 
-COMMANDS = ("serve", "start", "stop", "status", "open")
+COMMANDS = ("serve", "start", "stop", "status", "open", "tui")
 
 
 @dataclass(frozen=True)
@@ -25,6 +25,8 @@ class Options:
     port: int
     no_open: bool
     detached: bool
+    project: str | None = None
+    filter: str | None = None
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -36,13 +38,16 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--port", type=int, default=DEFAULT_PORT, help=f"port (default {DEFAULT_PORT})")
     parser.add_argument("--no-open", action="store_true", help="do not open a browser")
     parser.add_argument("--detached", action="store_true", help=argparse.SUPPRESS)
-    sub = parser.add_subparsers(dest="command", metavar="{serve,start,stop,status,open}")
+    parser.add_argument("--project", type=str, default=None, help="project directory to inspect")
+    parser.add_argument("--filter", type=str, default=None, help="pre-filter server or tool")
+    sub = parser.add_subparsers(dest="command", metavar="{serve,start,stop,status,open,tui}")
     helps = {
         "serve": "run the server in the foreground (default)",
         "start": "run the server in the background",
         "stop": "stop the background server",
         "status": "show whether the server is running",
         "open": "open the UI of the running server",
+        "tui": "launch the terminal user interface",
     }
     for name in COMMANDS:
         child = sub.add_parser(name, help=helps[name])
@@ -53,6 +58,13 @@ def build_parser() -> argparse.ArgumentParser:
         child.add_argument(
             "--detached", action="store_true", default=argparse.SUPPRESS, help=argparse.SUPPRESS
         )
+        if name == "tui":
+            child.add_argument(
+                "--project", type=str, default=argparse.SUPPRESS, help="project directory to inspect"
+            )
+            child.add_argument(
+                "--filter", type=str, default=argparse.SUPPRESS, help="pre-filter server or tool"
+            )
     return parser
 
 
@@ -63,6 +75,8 @@ def parse_options(argv: Sequence[str] | None) -> Options:
         port=int(ns.port),
         no_open=bool(ns.no_open),
         detached=bool(ns.detached),
+        project=getattr(ns, "project", None),
+        filter=getattr(ns, "filter", None),
     )
 
 
@@ -164,6 +178,12 @@ def cmd_open(paths: Paths, opts: Options) -> int:
     return 0
 
 
+def cmd_tui(paths: Paths, opts: Options) -> int:
+    from .tui.app import run_tui
+
+    return run_tui(paths, opts)
+
+
 def run(argv: Sequence[str] | None = None, paths: Paths | None = None) -> int:
     opts = parse_options(argv)
     resolved = paths or default_paths()
@@ -173,6 +193,7 @@ def run(argv: Sequence[str] | None = None, paths: Paths | None = None) -> int:
         "stop": cmd_stop,
         "status": cmd_status,
         "open": cmd_open,
+        "tui": cmd_tui,
     }
     try:
         return handlers[opts.command](resolved, opts)
